@@ -1,0 +1,20 @@
+{
+  "name": "rv-a27-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --minify --format=esm --outfile=public/app.js",
+    "dev": "python3 -m http.server 4173 --directory public",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
