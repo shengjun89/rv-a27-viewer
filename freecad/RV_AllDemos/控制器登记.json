@@ -1,0 +1,81 @@
+{
+  "revision": "A27 R7",
+  "clips": [
+    {
+      "id": "living",
+      "title": "办公收纳 → 沙发成床 → 复位",
+      "duration": 22
+    },
+    {
+      "id": "bath",
+      "title": "卫生间卷门开合",
+      "duration": 7
+    },
+    {
+      "id": "OH_L01",
+      "title": "L01｜上翻门组件",
+      "duration": 4
+    },
+    {
+      "id": "OH_L02",
+      "title": "L02｜上翻门组件",
+      "duration": 4
+    },
+    {
+      "id": "OH_L03",
+      "title": "L03｜上翻门组件",
+      "duration": 4
+    },
+    {
+      "id": "OH_L04",
+      "title": "L04｜上翻门组件",
+      "duration": 4
+    },
+    {
+      "id": "OH_L05",
+      "title": "L05｜上翻门组件",
+      "duration": 4
+    },
+    {
+      "id": "OH_K01",
+      "title": "K01｜上翻门组件",
+      "duration": 4
+    },
+    {
+      "id": "SS_OH_E01",
+      "title": "E01｜端仓上翻门｜柜体移位后缩短120",
+      "duration": 4
+    },
+    {
+      "id": "OH_E02",
+      "title": "E02｜上翻门组件",
+      "duration": 4
+    },
+    {
+      "id": "SS_ED_Upper",
+      "title": "入口上柜门",
+      "duration": 5
+    },
+    {
+      "id": "AP_WasherSwing",
+      "title": "洗衣机门开启 → 关闭",
+      "duration": 6
+    },
+    {
+      "id": "AP_FridgeSwing",
+      "title": "42 L 冰箱门开启 → 关闭",
+      "duration": 6
+    },
+    {
+      "id": "WD_LeftDoor",
+      "title": "洗衣液收纳柜门开启 → 关闭",
+      "duration": 5
+    },
+    {
+      "id": "upright_ladder",
+      "title": "柜内藏梯：翻板、直立、横推入柜、关门",
+      "duration": 30
+    }
+  ],
+  "duration": 113
+}

@@ -4,8 +4,18 @@ import * as THREE from 'three';
 import {prepareTrack,sampleTransform,cycleProgress} from '../src/cad-motion.js';
 const data=JSON.parse(fs.readFileSync(new URL('../public/motion-data.json', import.meta.url)));
 const checks=JSON.parse(fs.readFileSync(new URL('./fixtures/cad-checks.json', import.meta.url)));
+const info=JSON.parse(fs.readFileSync(new URL('../public/model-info.json',import.meta.url)));
+assert.equal(info.version,'A27 R7');assert.equal(info.actions.length,15);
+assert.equal(data.modelHash,info.modelHash);
+for(const id of ['AP_WasherSwing','AP_FridgeSwing','WD_LeftDoor']){
+ assert.equal(data.actions[id].interaction,'door');
+ assert.ok(Object.keys(data.actions[id].tracks).length>=1);
+}
+assert.ok(!data.actions.SS_ED_Middle);
+assert.deepEqual(info.batteryBoundsMm,[2055,-793.1,745,2700,-610.9,1009]);
 let hingeError=0;
 for(const sample of checks.hinges){
+ assert.ok(Math.abs(sample.hinge.degrees)<=110,`${sample.action}: hinge takes the short arc`);
  const track=prepareTrack(data.actions[sample.action].tracks[sample.object]);
  for(const frame of sample.samples){
   const object=new THREE.Object3D();sampleTransform(track, frame.progress,object);object.updateMatrix();

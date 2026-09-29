@@ -1,0 +1,9 @@
+{
+  "revision": "A27 R7",
+  "date": "2026-09-29",
+  "model": "房车完整布局_R7_右舱电池与电器开门演示.FCStd",
+  "modelHash": "b96d6fe833e24da3644b82a5bbee7ede0ad21f532f9da34f44fe85c3df84e6af",
+  "actions": 15,
+  "sourceDurationSeconds": 113,
+  "entry": "整车一键演示.FCMacro"
+}

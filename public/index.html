@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f4f3ee">
   <meta name="description" content="大通V80房车A27活动部件交互模型">
-  <title>A27 · 房车活动模型</title>
+  <title>A27 R7 · 房车活动模型</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -29,6 +29,17 @@
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </nav>
+
+  <details class="demo-panel" open>
+    <summary>整车演示 <span>A27 R7</span></summary>
+    <div class="demo-controls">
+      <p id="motion-status" aria-live="polite">正在载入模型…</p>
+      <div class="demo-row"><button id="play-all" disabled>播放全部</button><button id="pause-motion" disabled>暂停</button><button id="stop-motion" disabled>停止复位</button></div>
+      <div class="demo-row"><select id="action-select" aria-label="选择演示部件" disabled></select><button id="play-selected" disabled>开合 / 演示</button></div>
+      <p class="demo-hint">门点击打开停住，再点关闭。播放中可手动旋转观察。</p>
+      <p class="demo-downloads"><a href="./downloads/RV_R7_FreeCAD.zip">下载模型与演示宏</a> · <a href="./battery-right-bay.png" target="_blank" rel="noopener">电池检修位置</a></p>
+    </div>
+  </details>
 
   <p class="gesture">
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">

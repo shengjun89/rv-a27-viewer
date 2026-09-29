@@ -10,6 +10,8 @@ let renderer, camera, scene, controls, model, info, cadMotion;
 let frame = 0;
 let motion = null;
 let activeAction = null;
+let playlist = [];
+let pausedAt = null;
 let topView = false;
 const actionMeshes = new Map();
 const motionNodes = new Map();
@@ -26,6 +28,9 @@ const status = {
   controlProgress: null,
   stage: null,
   duration: null,
+  playlistRemaining: 0,
+  paused: false,
+  revision: null,
 };
 
 Object.defineProperty(window, 'viewerStatus', {
@@ -91,7 +96,7 @@ function requestRender() {
 function render(time) {
   frame = 0;
   let keepRendering = false;
-  if (motion) {
+  if (motion && pausedAt === null) {
     const raw = Math.min(1, Math.max(0, (time - motion.started) / motion.duration));
     const action = cadMotion.actions.get(motion.actionId);
     const eased = raw * raw * (3 - 2 * raw);
@@ -112,9 +117,13 @@ function render(time) {
       status.activeAction = activeAction;
       status.transitioning = false;
       if (queued) startAction(queued);
+      else if (playlist.length) startAction(playlist.shift(), true);
     }
     keepRendering = Boolean(motion);
   }
+  status.playlistRemaining = playlist.length;
+  status.paused = pausedAt !== null;
+  updatePlaybackUI();
   controls.update();
   renderer.render(scene, camera);
   status.renderedFrames += 1;
@@ -122,16 +131,17 @@ function render(time) {
 }
 
 function isCabinetAction(actionId) {
-  return /^(OH_|SS_OH_|SS_ED_)/.test(actionId);
+  return cadMotion?.actions.get(actionId)?.interaction === 'door' || /^(OH_|SS_OH_|SS_ED_)/.test(actionId);
 }
 
-function startAction(actionId) {
+function startAction(actionId, fullCycle = false) {
+  pausedAt = null;
   const action = cadMotion.actions.get(actionId);
   activeAction = actionId;
   status.activeAction = actionId;
   status.controlProgress = action.baselineProgress;
   status.duration = info.actions.find((item) => item.id === actionId).duration;
-  const cabinet = isCabinetAction(actionId);
+  const cabinet = !fullCycle && isCabinetAction(actionId);
   motion = {
     actionId,
     segment: cabinet,
@@ -147,6 +157,8 @@ function startAction(actionId) {
 
 function setAction(actionId) {
   if (!status.ready || !actionMeshes.has(actionId)) return;
+  playlist = [];
+  if (pausedAt !== null && motion) { motion.started += performance.now() - pausedAt; pausedAt = null; }
   // A tap starts exactly one cabinet stroke. Ignore re-entry until it settles.
   if (motion && isCabinetAction(motion.actionId)) return;
   if (activeAction) {
@@ -172,7 +184,40 @@ function setAction(actionId) {
   }
 }
 
+function updatePlaybackUI() {
+  if (!$('motion-status')) return;
+  const label = info?.actions.find((a) => a.id === activeAction)?.label;
+  $('motion-status').textContent = status.ready
+    ? (label ? `${label} · ${status.paused ? '已暂停' : status.stage || '演示中'}` : `${info.version} · ${info.actions.length} 项演示`)
+    : '正在载入模型…';
+  $('pause-motion').textContent = status.paused ? '继续' : '暂停';
+  $('pause-motion').disabled = !motion;
+}
+
+function stopAnimations() {
+  playlist = []; pausedAt = null; motion = null; activeAction = null;
+  status.activeAction = null; status.transitioning = false;
+  status.controlProgress = null; status.stage = null; status.paused = false;
+  status.playlistRemaining = 0;
+  cadMotion?.resetAll(); requestRender();
+}
+
+function playAll() {
+  if (!status.ready) return;
+  stopAnimations();
+  playlist = info.actions.map((action) => action.id);
+  if (playlist.length) startAction(playlist.shift(), true);
+}
+
+function pauseMotion() {
+  if (!motion) return;
+  if (pausedAt === null) pausedAt = performance.now();
+  else { motion.started += performance.now() - pausedAt; pausedAt = null; }
+  requestRender();
+}
+
 function resetModelAndView() {
+  playlist = []; pausedAt = null;
   motion = null;
   activeAction = null;
   status.activeAction = null;
@@ -259,6 +304,10 @@ function installInteractions() {
   });
 
   $('reset').addEventListener('click', resetModelAndView);
+  $('play-all').addEventListener('click', playAll);
+  $('pause-motion').addEventListener('click', pauseMotion);
+  $('stop-motion').addEventListener('click', stopAnimations);
+  $('play-selected').addEventListener('click', () => setAction($('action-select').value));
   $('top-view').addEventListener('click', () => {
     topView = !topView;
     $('top-view').setAttribute('aria-pressed', String(topView));
@@ -347,6 +396,7 @@ async function init() {
     const response = await fetch('./model-info.json');
     if (!response.ok) throw new Error('metadata');
     info = await response.json();
+    status.revision = info.revision;
     const gltf = await new GLTFLoader().loadAsync(`./rv-a27.glb?v=${info.assetHash || info.modelHash}`, (event) => {
       const percent = Math.min(
         96,
@@ -413,14 +463,18 @@ async function init() {
     cadMotion.resetAll();
     scene.add(model);
     status.actions = info.actions.length;
+    for (const action of info.actions) {
+      const option = document.createElement('option'); option.value = action.id; option.textContent = action.label; $('action-select').append(option);
+    }
     fitModel();
     installInteractions();
     status.ready = true;
+    for (const id of ['play-all', 'play-selected', 'stop-motion', 'action-select']) $(id).disabled = false;
     if (new URLSearchParams(location.search).has('qa')) {
       window.motionTest = {
-        play: setAction,
+        play: setAction, playAll, pause: pauseMotion, stop: stopAnimations,
         seek(id, progress) {
-          motion = null;
+          playlist = []; pausedAt = null; motion = null;
           cadMotion.resetAll();
           cadMotion.apply(id, progress);
           activeAction = id;

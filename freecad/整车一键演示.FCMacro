@@ -1,0 +1,7 @@
+from pathlib import Path
+import sys, importlib
+_here=Path(__file__).resolve().parent/'RV_AllDemos'
+if str(_here) not in sys.path:sys.path.insert(0,str(_here))
+import animation_core,scene_view,player_ui,desktop_bridge
+for module in [animation_core,scene_view,player_ui,desktop_bridge]:importlib.reload(module)
+desktop_bridge.launch()
