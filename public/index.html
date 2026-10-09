@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f4f3ee">
   <meta name="description" content="大通V80房车A27活动部件交互模型">
   <title>A27 R7 · 房车活动模型</title>
-  <link rel="stylesheet" href="./style.css?v=20261009-e01r6">
+  <link rel="stylesheet" href="./style.css?v=20261009-e01r7">
 </head>
 <body>
   <main id="viewer" aria-label="房车三维模型，拖动旋转，双指缩放或平移"></main>
@@ -38,6 +38,7 @@
       <div class="demo-row"><button id="play-all" disabled>播放全部</button><button id="pause-motion" disabled>暂停</button><button id="stop-motion" disabled>停止复位</button></div>
       <div class="demo-row"><select id="action-select" aria-label="选择演示部件" disabled></select><button id="play-selected" disabled>开合 / 演示</button></div>
       <div class="demo-row"><button id="locate-inverter" disabled>定位充逆变一体机</button></div>
+      <p class="demo-hint">已登记CR50：380宽×500深×534高mm、43.8L、60W。当前旧冰箱/柜体及分体机仓尚未几何更新，不能据此开料。</p>
       <p class="demo-hint">门点击打开停住，再点关闭。播放中可手动旋转观察。</p>
       <p class="demo-downloads"><a href="./downloads/RV_R7_FreeCAD.zip">下载模型与演示宏</a> · <a href="./battery-right-bay.png" target="_blank" rel="noopener">电池检修位置</a></p>
     </div>
@@ -49,7 +50,7 @@
     <p class="electrical-spec">8kWh 电池 <span>＋</span> 5400W 充逆变器</p>
     <p class="electrical-note">用户确认：充电限流 40A<br>其他模型不透明度 4% · 线路为布局候选</p>
     <div class="demo-row"><button id="locate-inverter-panel" disabled>定位一体机</button><button id="locate-remote-panel" disabled>定位操作面板</button></div>
-    <p class="electrical-note">I：进门左侧、灶台朝入口的固定侧板旁，台面以下竖向安装。按商品图建287.6宽×431.7高×115.5深mm外形；入口通行、背衬、散热及线长待核。</p>
+    <p class="electrical-note">I：办公桌—沙发侧，两扇窗之间固定墙面，竖向试放。按商品图建287.6宽×431.7高×115.5深mm外形；窗间承力、窗帘、散热、噪声及坐卧避让待核。</p>
     <p class="electrical-note">C：办公桌靠墙左侧，独立LCD操作面板；200×110×25mm为展示占位，尺寸待核。仅外形演示，无实时数据。</p>
     <div class="electrical-legend"><span style="--line:#9a69ac">面板连接线</span><span style="--line:#c74d45">48V 正极</span><span style="--line:#536575">负极 / 分流器</span><span style="--line:#c38220">220V 电缆束</span><span style="--line:#167caa">12V 双线支路</span><span style="--line:#518346">PE 保护连接</span></div>
     <a class="electrical-link" href="./electrical.html" target="_blank" rel="noopener">查看系统图、回路表与选型条件 ↗</a>
@@ -61,7 +62,7 @@
       <dt>F → D → R / L</dt><dd>48→12V → 冰箱、照明、风扇及水泵分保险</dd>
       <dt>E</dt><dd>PE 排连接设备金属壳、车体；不作负极回路</dd>
     </dl></details>
-    <p class="electrical-note">Q为直流充电桩取电器，用户确认输出220V交流；额定功率及接地逻辑待核。I按商品尺寸图建外形，C为面板外形占位；其余节点为位置符号。图中汇总灯/泵位置；穿孔、线径、保护额定值及活动件避让待核。冰箱实际电压待定。</p>
+    <p class="electrical-note">Q为直流充电桩取电器，用户确认输出220V交流；额定功率及接地逻辑待核。I按商品尺寸图建外形，C为面板外形占位；其余节点为位置符号。图中汇总灯/泵位置；穿孔、线径、保护额定值及活动件避让待核。CR50为60W；按12V分路候选，12/24V兼容性待本机铭牌确认。</p>
   </aside>
 
   <p class="gesture">
@@ -77,6 +78,6 @@
     <i><b id="progress"></b></i>
   </div>
 
-  <script type="module" src="./app.js?v=20261009-e01r6"></script>
+  <script type="module" src="./app.js?v=20261009-e01r7"></script>
 </body>
 </html>

@@ -2,11 +2,11 @@ import * as THREE from 'three';
 
 // User product drawing: width includes mounting flanges. No hole sizes or service clearances supplied.
 export const inverterPlacement = {
-  center:[.79,1.18,-.80], size:[.2876,.4317,.1155],
+  center:[1.0,1.95,.82], size:[.2876,.4317,.1155],
   bodyWidth:.273, status:'商品图外形287.6×431.7×115.5mm；安装位置与散热待核',
 };
 export function createInverter() {
-  const group=new THREE.Group();group.name='壁挂充逆变一体机｜商品图外形';group.position.set(...inverterPlacement.center);group.rotation.y=-Math.PI/2;
+  const group=new THREE.Group();group.name='壁挂充逆变一体机｜商品图外形';group.position.set(...inverterPlacement.center);group.rotation.y=Math.PI;
   group.userData={candidate:true,dimensionsMm:[287.6,431.7,115.5],installationApproved:false};
   const shell=new THREE.MeshStandardMaterial({color:'#343838',metalness:.4,roughness:.55});
   const dark=new THREE.MeshStandardMaterial({color:'#151c1b',metalness:.15,roughness:.65});

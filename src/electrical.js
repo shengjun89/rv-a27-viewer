@@ -27,7 +27,7 @@ export const circuitNodes = [
   {id:'C', name:'独立LCD操作面板', p:[-.15,1.60,.874], color:0x9a69ac},
   {id:'B', name:'48V · 8kWh 电池', p:[2.3775,.877,.702], color:0xc74d45},
   {id:'F', name:'近电池熔断 / 隔离', p:[2.04,.89,.77], color:0xc74d45},
-  {id:'I', name:'充逆变一体机', p:[.79,.93,-.80], color:0xc74d45},
+  {id:'I', name:'充逆变一体机', p:[1.0,1.71,.80], color:0xc74d45},
   {id:'A', name:'220V 配电', p:[1.38,1.18,.80], color:0xc38220},
   {id:'D', name:'48→12V / 直流配电', p:[1.38,.85,.80], color:0x167caa},
   {id:'S', name:'岸电入口', p:[2.64,.80,.94], color:0xc38220},
@@ -36,25 +36,25 @@ export const circuitNodes = [
   {id:'K', name:'厨房插座', p:[-.10,1.45,-.80], color:0xc38220},
   {id:'W', name:'洗衣机支路', p:[1.39,1.02,-.77], color:0xc38220},
   {id:'O', name:'办公插座', p:[.24,1.25,.75], color:0xc38220},
-  {id:'R', name:'冰箱支路 · 电压待核', p:[-.08,1.02,-.78], color:0x167caa},
-  {id:'L', name:'灯 / 风扇 / 水泵', p:[.90,2.28,.79], color:0x167caa},
+  {id:'R', name:'CR50 · 60W · 12V分路候选', p:[-.08,1.02,-.78], color:0x167caa},
+  {id:'L', name:'灯 / 风扇 / 水泵', p:[.20,2.28,.79], color:0x167caa},
   {id:'E', name:'PE 排 / 车体连接', p:[1.78,.73,.79], color:0x518346},
 ];
 const paths = [
-  ['control', ['C',[-.15,.74,.86],[1.90,.74,.86],[1.90,.74,-.98],[.79,.74,-.98],'I']],
-  ['dc48', ['B','F',[2.04,.73,.82],[1.90,.73,.82],[1.90,.73,-.97],[.79,.73,-.97],'I']],
-  ['return', [[2.3775,.83,.66],[1.94,.71,.78],[1.94,.71,-.93],[.76,.71,-.93],[.76,.94,-.80]]],
+  ['control', ['C',[-.15,1.56,.882],[1.0,1.56,.882],'I']],
+  ['dc48', ['B','F',[1.0,.78,.84],'I']],
+  ['return', [[2.3775,.83,.66],[1.03,.83,.78],[1.03,1.72,.76]]],
   ['dc48', ['F',[1.96,.78,.77],[1.38,.78,.80],'D']],
   ['ac', ['S',[2.50,.75,.94],'T']],
   ['ac', ['Q',[2.47,.53,1.02],[2.17,.53,1.02],'T']],
-  ['ac', ['T',[1.98,.75,.90],[1.98,.75,-.99],[.83,.75,-.99],'I']],
-  ['ac', ['I',[1.82,.77,-.95],[1.82,.77,.80],'A']],
+  ['ac', ['T',[1.05,.75,.84],'I']],
+  ['ac', ['I',[1.20,1.71,.80],'A']],
   ['ac', ['A',[1.20,1.18,.80],[1.20,.78,.80],[1.20,.78,-.86],[-.10,.78,-.86],'K']],
   ['ac', [[1.20,.78,-.86],[1.39,.78,-.86],'W']],
   ['ac', ['A',[.24,1.18,.80],'O']],
   ['dc12', ['D',[1.05,.73,.76],[1.05,.73,-.90],[-.08,.73,-.90],'R']],
-  ['dc12', ['D',[.90,.85,.83],'L']],
-  ['pe', ['S',[2.54,.70,.83],[1.78,.70,.83],'E',[1.86,.73,.79],[1.86,.73,-.91],[.86,.73,-.91],'I']],
+  ['dc12', ['D',[.20,.85,.83],'L']],
+  ['pe', ['S',[2.54,.70,.83],[1.78,.70,.83],'E',[1.0,.73,.79],'I']],
   ['pe', ['E',[1.38,.73,.86],'A']],
 ];
 export const circuitColors = {control:0x9a69ac,dc48:0xc74d45, return:0x536575, ac:0xc38220, dc12:0x167caa, pe:0x518346};
@@ -81,7 +81,7 @@ export function createElectricalOverlay() {
     ctx.font='bold 44px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(node.id,64,42);
     const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
     const label=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,depthTest:false,depthWrite:false}));
-    label.position.set(node.p[0],node.id === 'I' ? 1.52 : node.id === 'C' ? 1.81 : node.p[1]+.11,node.p[2]);label.scale.set(.17,.106,1);label.renderOrder=10;group.add(label);
+    label.position.set(node.p[0],node.id === 'I' ? 2.28 : node.id === 'C' ? 1.81 : node.p[1]+.11,node.p[2]);label.scale.set(.17,.106,1);label.renderOrder=10;group.add(label);
   }
   return group;
 }

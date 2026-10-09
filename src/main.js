@@ -332,8 +332,8 @@ function installInteractions() {
     setElectricalVisible(true);
     topView = false;
     $('top-view').setAttribute('aria-pressed', 'false');
-    controls.target.set(.85,1.24,-.78);
-    camera.position.set(-.90,1.98,.60);
+    controls.target.set(1.0,1.95,.82);
+    camera.position.set(2.15,2.45,-1.30);
     controls.update();
     requestRender();
   });
@@ -442,6 +442,8 @@ async function init() {
     if (!response.ok) throw new Error('metadata');
     info = await response.json();
     status.revision = info.revision;
+    const oldFridge = info.actions.find(a => a.id === 'AP_FridgeSwing');
+    if (oldFridge) oldFridge.label = '旧冰箱门｜待适配CR50';
     const gltf = await new GLTFLoader().loadAsync(`./rv-a27.glb?v=${info.assetHash || info.modelHash}`, (event) => {
       const percent = Math.min(
         96,
