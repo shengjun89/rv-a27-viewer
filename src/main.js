@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createCADMotion, cycleProgress } from './cad-motion.js';
 import { createGhostMode, createElectricalOverlay } from './electrical.js';
-import { createInverter, createRemotePanel } from './inverter.js';
+import { createInverter, createRemotePanel, createInverterCabinet } from './inverter.js';
 
 const $ = (id) => document.getElementById(id);
 const host = $('viewer');
@@ -513,6 +513,9 @@ async function init() {
     electricalOverlay = createElectricalOverlay();
     scene.add(electricalOverlay);
     scene.add(createInverter());
+    const inverterCabinet=createInverterCabinet();scene.add(inverterCabinet);
+    $('cabinet-inspect').disabled=false;
+    $('cabinet-inspect').addEventListener('change', e => {inverterCabinet.userData.cover.visible=!e.target.checked;requestRender();});
     scene.add(createRemotePanel());
     $('locate-remote-panel').disabled = false;
     for (const id of ['locate-inverter', 'locate-inverter-panel']) $(id).disabled = false;
