@@ -315,7 +315,7 @@ function installInteractions() {
     ghostMode(electricalVisible);
     electricalOverlay.visible = electricalVisible;
     status.electricalVisible = electricalVisible;
-    status.contextOpacity = electricalVisible ? .08 : null;
+    status.contextOpacity = electricalVisible ? .04 : null;
     $('electrical-toggle').setAttribute('aria-pressed', String(electricalVisible));
     $('electrical-toggle').textContent = electricalVisible ? '隐藏电路' : '显示电路';
     $('electrical-panel').hidden = !electricalVisible;

@@ -13,7 +13,7 @@ export function createGhostMode(model) {
         for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
           if (saved.has(material)) continue;
           saved.set(material, { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite });
-          Object.assign(material, { opacity: .08, transparent: true, depthWrite: false, needsUpdate: true });
+          Object.assign(material, { opacity: .04, transparent: true, depthWrite: false, needsUpdate: true });
         }
       });
     } else {
