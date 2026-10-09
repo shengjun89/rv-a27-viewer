@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createCADMotion, cycleProgress } from './cad-motion.js';
 import { createGhostMode, createElectricalOverlay } from './electrical.js';
-import { createInverter } from './inverter.js';
+import { createInverter, createRemotePanel } from './inverter.js';
 
 const $ = (id) => document.getElementById(id);
 const host = $('viewer');
@@ -332,8 +332,18 @@ function installInteractions() {
     setElectricalVisible(true);
     topView = false;
     $('top-view').setAttribute('aria-pressed', 'false');
-    controls.target.set(2.53,1.83,.78);
-    camera.position.set(1.35,2.25,-.95);
+    controls.target.set(.85,1.24,-.78);
+    camera.position.set(-.90,1.98,.60);
+    controls.update();
+    requestRender();
+  });
+
+  $('locate-remote-panel').addEventListener('click', () => {
+    setElectricalVisible(true);
+    topView = false;
+    $('top-view').setAttribute('aria-pressed','false');
+    controls.target.set(-.15,1.67,.87);
+    camera.position.set(.42,1.97,-.20);
     controls.update();
     requestRender();
   });
@@ -501,6 +511,8 @@ async function init() {
     electricalOverlay = createElectricalOverlay();
     scene.add(electricalOverlay);
     scene.add(createInverter());
+    scene.add(createRemotePanel());
+    $('locate-remote-panel').disabled = false;
     for (const id of ['locate-inverter', 'locate-inverter-panel']) $(id).disabled = false;
     $('electrical-toggle').disabled = false;
     status.actions = info.actions.length;

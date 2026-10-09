@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f4f3ee">
   <meta name="description" content="大通V80房车A27活动部件交互模型">
   <title>A27 R7 · 房车活动模型</title>
-  <link rel="stylesheet" href="./style.css?v=20261009-e01r4">
+  <link rel="stylesheet" href="./style.css?v=20261009-e01r6">
 </head>
 <body>
   <main id="viewer" aria-label="房车三维模型，拖动旋转，双指缩放或平移"></main>
@@ -48,18 +48,20 @@
     <h1>48V 生活用电</h1>
     <p class="electrical-spec">8kWh 电池 <span>＋</span> 5400W 充逆变器</p>
     <p class="electrical-note">用户确认：充电限流 40A<br>其他模型不透明度 4% · 线路为布局候选</p>
-    <div class="demo-row"><button id="locate-inverter-panel" disabled>定位一体机</button></div>
-    <p class="electrical-note">I：电池舱上方、沙发靠车尾侧墙，黑色竖向壁挂机。按商品图建287.6宽×431.7高×115.5深mm外形；背衬、锚固、散热及人体避让待核。</p>
-    <div class="electrical-legend"><span style="--line:#c74d45">48V 正极</span><span style="--line:#536575">负极 / 分流器</span><span style="--line:#c38220">220V 电缆束</span><span style="--line:#167caa">12V 双线支路</span><span style="--line:#518346">PE 保护连接</span></div>
+    <div class="demo-row"><button id="locate-inverter-panel" disabled>定位一体机</button><button id="locate-remote-panel" disabled>定位操作面板</button></div>
+    <p class="electrical-note">I：进门左侧、灶台朝入口的固定侧板旁，台面以下竖向安装。按商品图建287.6宽×431.7高×115.5深mm外形；入口通行、背衬、散热及线长待核。</p>
+    <p class="electrical-note">C：办公桌靠墙左侧，独立LCD操作面板；200×110×25mm为展示占位，尺寸待核。仅外形演示，无实时数据。</p>
+    <div class="electrical-legend"><span style="--line:#9a69ac">面板连接线</span><span style="--line:#c74d45">48V 正极</span><span style="--line:#536575">负极 / 分流器</span><span style="--line:#c38220">220V 电缆束</span><span style="--line:#167caa">12V 双线支路</span><span style="--line:#518346">PE 保护连接</span></div>
     <a class="electrical-link" href="./electrical.html" target="_blank" rel="noopener">查看系统图、回路表与选型条件 ↗</a>
     <details open><summary>设备与回路</summary><dl>
+      <dt>C ↔ I</dt><dd>独立面板与一体机连接；商品图标注8m网线延长，专用接法待核。</dd>
       <dt>B → F → I</dt><dd>电池 → 近端熔断 / 隔离 → 充逆变器</dd>
       <dt>S / Q → T → I → A</dt><dd>岸电 / 取电器220V → 互锁择一与输入保护 → 一体机 → 输出漏保配电</dd>
       <dt>A → K / W / O</dt><dd>厨房、洗衣机、办公各自独立支路</dd>
       <dt>F → D → R / L</dt><dd>48→12V → 冰箱、照明、风扇及水泵分保险</dd>
       <dt>E</dt><dd>PE 排连接设备金属壳、车体；不作负极回路</dd>
     </dl></details>
-    <p class="electrical-note">Q为直流充电桩取电器，用户确认输出220V交流；额定功率及接地逻辑待核。除I有设备外形候选外，其他节点为位置符号；均非已核实物尺寸。图中汇总灯/泵位置；穿孔、线径、保护额定值及活动件避让待核。冰箱实际电压待定。</p>
+    <p class="electrical-note">Q为直流充电桩取电器，用户确认输出220V交流；额定功率及接地逻辑待核。I按商品尺寸图建外形，C为面板外形占位；其余节点为位置符号。图中汇总灯/泵位置；穿孔、线径、保护额定值及活动件避让待核。冰箱实际电压待定。</p>
   </aside>
 
   <p class="gesture">
@@ -75,6 +77,6 @@
     <i><b id="progress"></b></i>
   </div>
 
-  <script type="module" src="./app.js?v=20261009-e01r4"></script>
+  <script type="module" src="./app.js?v=20261009-e01r6"></script>
 </body>
 </html>

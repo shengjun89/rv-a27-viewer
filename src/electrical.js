@@ -24,9 +24,10 @@ export function createGhostMode(model) {
 }
 
 export const circuitNodes = [
+  {id:'C', name:'独立LCD操作面板', p:[-.15,1.60,.874], color:0x9a69ac},
   {id:'B', name:'48V · 8kWh 电池', p:[2.3775,.877,.702], color:0xc74d45},
   {id:'F', name:'近电池熔断 / 隔离', p:[2.04,.89,.77], color:0xc74d45},
-  {id:'I', name:'充逆变一体机', p:[2.63,1.60,.80], color:0xc74d45},
+  {id:'I', name:'充逆变一体机', p:[.79,.93,-.80], color:0xc74d45},
   {id:'A', name:'220V 配电', p:[1.38,1.18,.80], color:0xc38220},
   {id:'D', name:'48→12V / 直流配电', p:[1.38,.85,.80], color:0x167caa},
   {id:'S', name:'岸电入口', p:[2.64,.80,.94], color:0xc38220},
@@ -40,22 +41,23 @@ export const circuitNodes = [
   {id:'E', name:'PE 排 / 车体连接', p:[1.78,.73,.79], color:0x518346},
 ];
 const paths = [
-  ['dc48', ['B','F',[2.63,.78,.84],'I']],
-  ['return', [[2.3775,.83,.66],[2.63,.83,.70],[2.63,1.61,.76]]],
+  ['control', ['C',[-.15,.74,.86],[1.90,.74,.86],[1.90,.74,-.98],[.79,.74,-.98],'I']],
+  ['dc48', ['B','F',[2.04,.73,.82],[1.90,.73,.82],[1.90,.73,-.97],[.79,.73,-.97],'I']],
+  ['return', [[2.3775,.83,.66],[1.94,.71,.78],[1.94,.71,-.93],[.76,.71,-.93],[.76,.94,-.80]]],
   ['dc48', ['F',[1.96,.78,.77],[1.38,.78,.80],'D']],
   ['ac', ['S',[2.50,.75,.94],'T']],
   ['ac', ['Q',[2.47,.53,1.02],[2.17,.53,1.02],'T']],
-  ['ac', ['T',[2.63,.72,.91],'I']],
-  ['ac', ['I',[2.75,1.60,.76],[2.75,1.18,.76],'A']],
+  ['ac', ['T',[1.98,.75,.90],[1.98,.75,-.99],[.83,.75,-.99],'I']],
+  ['ac', ['I',[1.82,.77,-.95],[1.82,.77,.80],'A']],
   ['ac', ['A',[1.20,1.18,.80],[1.20,.78,.80],[1.20,.78,-.86],[-.10,.78,-.86],'K']],
   ['ac', [[1.20,.78,-.86],[1.39,.78,-.86],'W']],
   ['ac', ['A',[.24,1.18,.80],'O']],
   ['dc12', ['D',[1.05,.73,.76],[1.05,.73,-.90],[-.08,.73,-.90],'R']],
   ['dc12', ['D',[.90,.85,.83],'L']],
-  ['pe', ['S',[2.54,.70,.83],[1.78,.70,.83],'E',[2.63,.73,.79],'I']],
+  ['pe', ['S',[2.54,.70,.83],[1.78,.70,.83],'E',[1.86,.73,.79],[1.86,.73,-.91],[.86,.73,-.91],'I']],
   ['pe', ['E',[1.38,.73,.86],'A']],
 ];
-export const circuitColors = {dc48:0xc74d45, return:0x536575, ac:0xc38220, dc12:0x167caa, pe:0x518346};
+export const circuitColors = {control:0x9a69ac,dc48:0xc74d45, return:0x536575, ac:0xc38220, dc12:0x167caa, pe:0x518346};
 
 export function createElectricalOverlay() {
   const group = new THREE.Group(); group.name = '电路布局候选'; group.visible = false;
@@ -64,7 +66,7 @@ export function createElectricalOverlay() {
     const points = path.map(p=>new THREE.Vector3(...(typeof p === 'string' ? locations[p] : p)));
     for (let i=1;i<points.length;i++) {
       const delta = points[i].clone().sub(points[i-1]);
-      const tube = new THREE.Mesh(new THREE.CylinderGeometry(.009,.009,delta.length(),8),new THREE.MeshBasicMaterial({color:circuitColors[kind]}));
+      const tube = new THREE.Mesh(new THREE.CylinderGeometry(kind === 'control' ? .004 : .009,kind === 'control' ? .004 : .009,delta.length(),8),new THREE.MeshBasicMaterial({color:circuitColors[kind]}));
       tube.position.copy(points[i-1]).add(points[i]).multiplyScalar(.5);
       tube.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),delta.normalize());
       group.add(tube);
@@ -79,7 +81,7 @@ export function createElectricalOverlay() {
     ctx.font='bold 44px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(node.id,64,42);
     const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
     const label=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,depthTest:false,depthWrite:false}));
-    label.position.set(node.p[0],node.id === 'I' ? 2.20 : node.p[1]+.11,node.p[2]);label.scale.set(.17,.106,1);label.renderOrder=10;group.add(label);
+    label.position.set(node.p[0],node.id === 'I' ? 1.52 : node.id === 'C' ? 1.81 : node.p[1]+.11,node.p[2]);label.scale.set(.17,.106,1);label.renderOrder=10;group.add(label);
   }
   return group;
 }
