@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createCADMotion, cycleProgress } from './cad-motion.js';
 import { createGhostMode, createElectricalOverlay } from './electrical.js';
+import { createInverter } from './inverter.js';
 
 const $ = (id) => document.getElementById(id);
 const host = $('viewer');
@@ -310,8 +311,9 @@ function installInteractions() {
     setAction(actionId);
   });
 
-  $('electrical-toggle').addEventListener('click', () => {
-    electricalVisible = !electricalVisible;
+  function setElectricalVisible(next) {
+    if (next === electricalVisible) return;
+    electricalVisible = next;
     ghostMode(electricalVisible);
     electricalOverlay.visible = electricalVisible;
     status.electricalVisible = electricalVisible;
@@ -324,6 +326,16 @@ function installInteractions() {
     if (electricalVisible) { demoPanelWasOpen = demoPanel.open; demoPanel.open = false; }
     else demoPanel.open = demoPanelWasOpen;
     resize();
+  }
+  $('electrical-toggle').addEventListener('click', () => setElectricalVisible(!electricalVisible));
+  for (const id of ['locate-inverter', 'locate-inverter-panel']) $(id).addEventListener('click', () => {
+    setElectricalVisible(true);
+    topView = false;
+    $('top-view').setAttribute('aria-pressed', 'false');
+    controls.target.set(2.53,1.83,.78);
+    camera.position.set(1.35,2.25,-.95);
+    controls.update();
+    requestRender();
   });
 
   $('reset').addEventListener('click', resetModelAndView);
@@ -488,6 +500,8 @@ async function init() {
     ghostMode = createGhostMode(model);
     electricalOverlay = createElectricalOverlay();
     scene.add(electricalOverlay);
+    scene.add(createInverter());
+    for (const id of ['locate-inverter', 'locate-inverter-panel']) $(id).disabled = false;
     $('electrical-toggle').disabled = false;
     status.actions = info.actions.length;
     for (const action of info.actions) {

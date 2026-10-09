@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f4f3ee">
   <meta name="description" content="大通V80房车A27活动部件交互模型">
   <title>A27 R7 · 房车活动模型</title>
-  <link rel="stylesheet" href="./style.css?v=20261009-e01r3">
+  <link rel="stylesheet" href="./style.css?v=20261009-e01r4">
 </head>
 <body>
   <main id="viewer" aria-label="房车三维模型，拖动旋转，双指缩放或平移"></main>
@@ -37,6 +37,7 @@
       <p id="motion-status" aria-live="polite">正在载入模型…</p>
       <div class="demo-row"><button id="play-all" disabled>播放全部</button><button id="pause-motion" disabled>暂停</button><button id="stop-motion" disabled>停止复位</button></div>
       <div class="demo-row"><select id="action-select" aria-label="选择演示部件" disabled></select><button id="play-selected" disabled>开合 / 演示</button></div>
+      <div class="demo-row"><button id="locate-inverter" disabled>定位充逆变一体机</button></div>
       <p class="demo-hint">门点击打开停住，再点关闭。播放中可手动旋转观察。</p>
       <p class="demo-downloads"><a href="./downloads/RV_R7_FreeCAD.zip">下载模型与演示宏</a> · <a href="./battery-right-bay.png" target="_blank" rel="noopener">电池检修位置</a></p>
     </div>
@@ -47,6 +48,8 @@
     <h1>48V 生活用电</h1>
     <p class="electrical-spec">8kWh 电池 <span>＋</span> 5400W 充逆变器</p>
     <p class="electrical-note">用户确认：充电限流 40A<br>其他模型不透明度 4% · 线路为布局候选</p>
+    <div class="demo-row"><button id="locate-inverter-panel" disabled>定位一体机</button></div>
+    <p class="electrical-note">I：电池舱上方、沙发靠车尾侧墙，黑色竖向壁挂机。按商品图建287.6宽×431.7高×115.5深mm外形；背衬、锚固、散热及人体避让待核。</p>
     <div class="electrical-legend"><span style="--line:#c74d45">48V 正极</span><span style="--line:#536575">负极 / 分流器</span><span style="--line:#c38220">220V 电缆束</span><span style="--line:#167caa">12V 双线支路</span><span style="--line:#518346">PE 保护连接</span></div>
     <a class="electrical-link" href="./electrical.html" target="_blank" rel="noopener">查看系统图、回路表与选型条件 ↗</a>
     <details open><summary>设备与回路</summary><dl>
@@ -56,7 +59,7 @@
       <dt>F → D → R / L</dt><dd>48→12V → 冰箱、照明、风扇及水泵分保险</dd>
       <dt>E</dt><dd>PE 排连接设备金属壳、车体；不作负极回路</dd>
     </dl></details>
-    <p class="electrical-note">Q为直流充电桩取电器，用户确认输出220V交流；额定功率及接地逻辑待核。节点是位置符号，不是设备实物尺寸。图中汇总灯/泵位置；穿孔、线径、保护额定值及活动件避让待核。冰箱实际电压待定。</p>
+    <p class="electrical-note">Q为直流充电桩取电器，用户确认输出220V交流；额定功率及接地逻辑待核。除I有设备外形候选外，其他节点为位置符号；均非已核实物尺寸。图中汇总灯/泵位置；穿孔、线径、保护额定值及活动件避让待核。冰箱实际电压待定。</p>
   </aside>
 
   <p class="gesture">
@@ -72,6 +75,6 @@
     <i><b id="progress"></b></i>
   </div>
 
-  <script type="module" src="./app.js?v=20261009-e01r3"></script>
+  <script type="module" src="./app.js?v=20261009-e01r4"></script>
 </body>
 </html>
