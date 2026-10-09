@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f4f3ee">
   <meta name="description" content="大通V80房车A27活动部件交互模型">
   <title>A27 R7 · 房车活动模型</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=20261009-e01">
 </head>
 <body>
   <main id="viewer" aria-label="房车三维模型，拖动旋转，双指缩放或平移"></main>
@@ -25,6 +25,7 @@
     <button id="zoom-out" aria-label="缩小模型" title="缩小">
       <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
+    <button id="electrical-toggle" class="text-tool" aria-pressed="false" aria-controls="electrical-panel" disabled>显示电路</button>
     <button id="share" aria-label="分享模型" title="分享">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
@@ -41,6 +42,23 @@
     </div>
   </details>
 
+  <aside id="electrical-panel" class="electrical-panel" hidden aria-label="电路配置候选">
+    <p class="electrical-eyebrow">用电方案 · E01</p>
+    <h1>48V 生活用电</h1>
+    <p class="electrical-spec">8kWh 电池 <span>＋</span> 5400W 充逆变器</p>
+    <p class="electrical-note">用户提供规格 · 40A 含义待核<br>其他模型不透明度 8% · 线路为布局候选</p>
+    <div class="electrical-legend"><span style="--line:#c74d45">48V 正极</span><span style="--line:#536575">负极 / 分流器</span><span style="--line:#c38220">220V 电缆束</span><span style="--line:#167caa">12V 双线支路</span><span style="--line:#518346">PE 保护连接</span></div>
+    <a class="electrical-link" href="./electrical.html" target="_blank" rel="noopener">查看系统图、回路表与选型条件 ↗</a>
+    <details open><summary>设备与回路</summary><dl>
+      <dt>B → F → I</dt><dd>电池 → 近端熔断 / 隔离 → 充逆变器</dd>
+      <dt>S / Q → T → I → A</dt><dd>岸电 / 取电器220V → 互锁择一与输入保护 → 一体机 → 输出漏保配电</dd>
+      <dt>A → K / W / O</dt><dd>厨房、洗衣机、办公各自独立支路</dd>
+      <dt>F → D → R / L</dt><dd>48→12V → 冰箱、照明、风扇及水泵分保险</dd>
+      <dt>E</dt><dd>PE 排连接设备金属壳、车体；不作负极回路</dd>
+    </dl></details>
+    <p class="electrical-note">Q为直流充电桩取电器，用户确认输出220V交流；额定功率及接地逻辑待核。节点是位置符号，不是设备实物尺寸。图中汇总灯/泵位置；穿孔、线径、保护额定值及活动件避让待核。冰箱实际电压待定。</p>
+  </aside>
+
   <p class="gesture">
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <path d="M5 10V4a1.5 1.5 0 0 1 3 0v5l1-1c1-1 2 0 2 0l1-1 3 2v4l-2 4H8l-4-5c-1-2 0-3 1-2Z" stroke="currentColor" stroke-width="1.1"/>
@@ -54,6 +72,6 @@
     <i><b id="progress"></b></i>
   </div>
 
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=20261009-e01"></script>
 </body>
 </html>

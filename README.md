@@ -29,3 +29,11 @@ npm run dev
 打开 http://localhost:4173/ 。`main` 推送后 GitHub Actions 自动验证、构建并发布。资源均使用相对路径。
 
 `src/` 为播放器；`public/rv-a27.glb` 为模型；`motion-data.json` 为 CAD 动作，`model-info.json` 记录版本与哈希。`test/fixtures/cad-checks.json` 核对铰轴和动作顺序。`scripts/export_scene.py` 在 FreeCAD 中运行，从当前打开的 R7 工程导出；只导出，不保存源模型。
+
+## E01 电路显示（2026-10-09）
+
+顶部「显示电路」开启独立布线候选图层，既有网格及参考线材质不透明度统一设0.08；关闭逐材质恢复原opacity/transparent/depthWrite，不改几何、部件可见性及动画。电路面板与模型分区显示，演示面板临时折叠，关闭电路时恢复。
+
+[electrical.html](public/electrical.html) 包含中文单线图、回路与线径初选、功率预算、来源及待核项。用户提供48V/8kWh、5400W/40A，并确认直流充电桩取电器输出220V交流接一体机；40A归属未确认。两路交流经先断后合互锁择一，禁止并接。淘宝读取仅得到登录页，未核实商品手册。
+
+三维节点仅位置符号，B沿用R7电池包络，其余为候选定位；不表明设备尺寸适配、线长、穿孔及动态干涉已经通过。原GLB、CAD动作数据、FreeCAD及Blender均未更新。公共网页方案为规划候选，不是施工图或采购批准。

@@ -2,11 +2,15 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createCADMotion, cycleProgress } from './cad-motion.js';
+import { createGhostMode, createElectricalOverlay } from './electrical.js';
 
 const $ = (id) => document.getElementById(id);
 const host = $('viewer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let renderer, camera, scene, controls, model, info, cadMotion;
+let electricalOverlay, ghostMode;
+let electricalVisible = false;
+let demoPanelWasOpen = true;
 let frame = 0;
 let motion = null;
 let activeAction = null;
@@ -20,6 +24,8 @@ const pointer = new THREE.Vector2();
 let pointerStart = null;
 const status = {
   ready: false,
+  electricalVisible: false,
+  contextOpacity: null,
   activeAction: null,
   transitioning: false,
   actions: 0,
@@ -258,7 +264,7 @@ function fitModel(directionValues = info.cameraDirection) {
       }
   camera.position
     .copy(center)
-    .addScaledVector(direction, distance);
+    .addScaledVector(direction, distance * (electricalVisible ? 1.12 : 1));
   controls.target.copy(center);
   camera.near = 0.015;
   camera.far = 150;
@@ -268,10 +274,11 @@ function fitModel(directionValues = info.cameraDirection) {
 
 function resize() {
   if (!renderer) return;
-  renderer.setSize(innerWidth, innerHeight);
-  camera.aspect = innerWidth / innerHeight;
+  const { width, height } = host.getBoundingClientRect();
+  renderer.setSize(width, height);
+  camera.aspect = width / height;
   camera.updateProjectionMatrix();
-  if (model) fitModel();
+  if (model) fitModel(topView ? [0.001, 1, 0.001] : camera.position.clone().sub(controls.target).toArray());
   requestRender();
 }
 
@@ -301,6 +308,22 @@ function installInteractions() {
     if (!hit) return;
     const actionId = Object.keys(hit.object.userData.motions)[0];
     setAction(actionId);
+  });
+
+  $('electrical-toggle').addEventListener('click', () => {
+    electricalVisible = !electricalVisible;
+    ghostMode(electricalVisible);
+    electricalOverlay.visible = electricalVisible;
+    status.electricalVisible = electricalVisible;
+    status.contextOpacity = electricalVisible ? .08 : null;
+    $('electrical-toggle').setAttribute('aria-pressed', String(electricalVisible));
+    $('electrical-toggle').textContent = electricalVisible ? '隐藏电路' : '显示电路';
+    $('electrical-panel').hidden = !electricalVisible;
+    document.body.classList.toggle('electrical-mode', electricalVisible);
+    const demoPanel = document.querySelector('.demo-panel');
+    if (electricalVisible) { demoPanelWasOpen = demoPanel.open; demoPanel.open = false; }
+    else demoPanel.open = demoPanelWasOpen;
+    resize();
   });
 
   $('reset').addEventListener('click', resetModelAndView);
@@ -462,6 +485,10 @@ async function init() {
     cadMotion = createCADMotion(model, motionData);
     cadMotion.resetAll();
     scene.add(model);
+    ghostMode = createGhostMode(model);
+    electricalOverlay = createElectricalOverlay();
+    scene.add(electricalOverlay);
+    $('electrical-toggle').disabled = false;
     status.actions = info.actions.length;
     for (const action of info.actions) {
       const option = document.createElement('option'); option.value = action.id; option.textContent = action.label; $('action-select').append(option);
