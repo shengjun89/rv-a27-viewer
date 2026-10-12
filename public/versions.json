@@ -1,10 +1,10 @@
 {
-  "release": "20261012-parts01",
+  "release": "20261013-functions01",
   "web": {
     "base": "A27 R7",
     "electrical": "E01R10：沙发底主机、细线及供能方向动画",
     "toilet": "WC01：座圈便盆和掀盖",
-    "interaction": "部件图示目录与单独查看/恢复整车"
+    "interaction": "7个产品功能分区，整套组件查看/恢复整车"
   },
   "assets": [
     {

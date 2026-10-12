@@ -536,12 +536,12 @@ async function init() {
     selectPart=(id)=>{
       stopAnimations();isolation.toggle(id);
       document.querySelectorAll('.part-card').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.part===isolation.active)));
-      $('part-status').textContent=isolation.active?partCatalog.groups.find(g=>g.id===id).label+' · 再点恢复整车':'全部部件 · 点击图示单独查看';
+      $('part-status').textContent=isolation.active?partCatalog.groups.find(g=>g.id===id).label+' · 再点恢复整车':'功能分区 · 点击查看整套组件';
       electricalOverlay.visible=electricalVisible&&!isolation.active;ghostMode(electricalVisible&&!isolation.active);
       if(isolation.active){const box=new THREE.Box3();partCatalog.groups.find(g=>g.id===id).objects.filter(o=>o.visible).forEach(o=>box.union(new THREE.Box3().setFromObject(o)));const center=box.getCenter(new THREE.Vector3());controls.target.copy(center);camera.position.copy(center).add(new THREE.Vector3(1,.7,1).normalize().multiplyScalar(Math.max(.6,box.getSize(new THREE.Vector3()).length()*1.6)));controls.update();}
       else fitModel();requestRender();
     };
-    for(const part of partCatalog.groups){const b=document.createElement('button');b.className='part-card';b.dataset.part=part.id;b.setAttribute('aria-pressed','false');const img=document.createElement('img');img.src=thumbnail(part,previews);img.alt='';const name=document.createElement('span');name.textContent=part.label;b.append(img,name);b.addEventListener('click',()=>selectPart(part.id));$('parts-list').append(b);}
+    for(const part of partCatalog.groups){const b=document.createElement('button');b.className='part-card';b.dataset.part=part.id;b.title=part.description;b.setAttribute('aria-pressed','false');const img=document.createElement('img');img.src=thumbnail(part,previews);img.alt='';const name=document.createElement('span');name.textContent=part.label;b.append(img,name);b.addEventListener('click',()=>selectPart(part.id));$('parts-list').append(b);}
     previews.dispose();
     for(const id of ['play-all','pause-motion','stop-motion','action-select','play-selected'])$('compact-actions').append($(id));
     const lidLabel=$('toilet-lid').closest('label');$('compact-actions').append(lidLabel);
