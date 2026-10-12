@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f4f3ee">
   <meta name="description" content="大通V80房车A27活动部件交互模型">
   <title>A27 R7 · 房车活动模型</title>
-  <link rel="stylesheet" href="./style.css?v=20261009-e01r8">
+  <link rel="stylesheet" href="./style.css?v=20261012-wc01">
 </head>
 <body>
   <main id="viewer" aria-label="房车三维模型，拖动旋转，双指缩放或平移"></main>
@@ -37,6 +37,8 @@
       <p id="motion-status" aria-live="polite">正在载入模型…</p>
       <div class="demo-row"><button id="play-all" disabled>播放全部</button><button id="pause-motion" disabled>暂停</button><button id="stop-motion" disabled>停止复位</button></div>
       <div class="demo-row"><select id="action-select" aria-label="选择演示部件" disabled></select><button id="play-selected" disabled>开合 / 演示</button></div>
+      <div class="demo-row"><button id="locate-toilet" disabled>定位坐便器</button><label><input id="toilet-lid" type="checkbox" disabled> 掀开便盖</label></div>
+      <p class="demo-note">坐便器为420长×340宽×440高mm外形候选；型号、排污与安装接口待定。下载CAD仍为旧版。</p>
       <div class="demo-row"><button id="locate-inverter" disabled>定位充逆变一体机</button></div>
       <p class="demo-hint">已登记CR50：380宽×500深×534高mm、43.8L、60W。当前旧冰箱/柜体及分体机仓尚未几何更新，不能据此开料。</p>
       <p class="demo-hint">门点击打开停住，再点关闭。播放中可手动旋转观察。</p>
@@ -80,6 +82,6 @@
     <i><b id="progress"></b></i>
   </div>
 
-  <script type="module" src="./app.js?v=20261009-e01r8"></script>
+  <script type="module" src="./app.js?v=20261012-wc01"></script>
 </body>
 </html>

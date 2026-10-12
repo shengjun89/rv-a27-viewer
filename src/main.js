@@ -1,3 +1,4 @@
+import { replaceToilet } from './toilet.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -508,6 +509,11 @@ async function init() {
     if (motionData.modelHash !== info.modelHash) throw new Error('CAD timeline version mismatch');
     cadMotion = createCADMotion(model, motionData);
     cadMotion.resetAll();
+    const toilet=replaceToilet(model);
+    $('toilet-lid').disabled=false;
+    $('toilet-lid').addEventListener('change',e=>{toilet.setOpen(e.target.checked);requestRender();});
+    $('locate-toilet').disabled=false;
+    $('locate-toilet').addEventListener('click',()=>{stopAnimations();cadMotion.apply('bath',100);controls.target.set(2.53,1.05,-.70);camera.position.set(2.12,1.85,-.48);controls.update();requestRender();});
     scene.add(model);
     ghostMode = createGhostMode(model);
     electricalOverlay = createElectricalOverlay();
