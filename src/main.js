@@ -1,3 +1,4 @@
+import { buildParts, createIsolation, thumbnail } from './parts.js';
 import { replaceToilet } from './toilet.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -16,6 +17,7 @@ let electricalVisible = false;
 let demoPanelWasOpen = true;
 let frame = 0;
 let motion = null;
+let partCatalog, isolation, selectPart;
 let activeAction = null;
 let playlist = [];
 let pausedAt = null;
@@ -312,28 +314,21 @@ function installInteractions() {
       -((event.clientY - rect.top) / rect.height) * 2 + 1,
     );
     raycaster.setFromCamera(pointer, camera);
-    const hit = raycaster
-      .intersectObject(model, true)
-      .find((item) => Object.keys(item.object.userData.motions || {}).length);
-    if (!hit) return;
-    const actionId = Object.keys(hit.object.userData.motions)[0];
-    setAction(actionId);
+    const hit=raycaster.intersectObjects(partCatalog.groups.flatMap(g=>g.objects),false).find(item=>item.object.visible);
+    if(hit)selectPart(partCatalog.byObject.get(hit.object));
   });
 
   function setElectricalVisible(next) {
     if (next === electricalVisible) return;
     electricalVisible = next;
-    ghostMode(electricalVisible);
-    electricalOverlay.visible = electricalVisible;
+    ghostMode(electricalVisible&&!isolation?.active);
+    electricalOverlay.visible = electricalVisible&&!isolation?.active;
     status.electricalVisible = electricalVisible;
     status.contextOpacity = electricalVisible ? .04 : null;
     $('electrical-toggle').setAttribute('aria-pressed', String(electricalVisible));
     $('electrical-toggle').textContent = electricalVisible ? '隐藏电路' : '显示电路';
-    $('electrical-panel').hidden = !electricalVisible;
+    $('flow-controls').hidden = !electricalVisible;
     document.body.classList.toggle('electrical-mode', electricalVisible);
-    const demoPanel = document.querySelector('.demo-panel');
-    if (electricalVisible) { demoPanelWasOpen = demoPanel.open; demoPanel.open = false; }
-    else demoPanel.open = demoPanelWasOpen;
     resize();
   }
   $('flow-animate').checked=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -359,8 +354,8 @@ function installInteractions() {
     requestRender();
   });
 
-  $('reset').addEventListener('click', resetModelAndView);
-  $('play-all').addEventListener('click', playAll);
+  $('reset').addEventListener('click', ()=>{if(isolation.active)selectPart(isolation.active);resetModelAndView();});
+  $('play-all').addEventListener('click', ()=>{if(isolation.active)selectPart(isolation.active);playAll();});
   $('pause-motion').addEventListener('click', pauseMotion);
   $('stop-motion').addEventListener('click', stopAnimations);
   $('play-selected').addEventListener('click', () => setAction($('action-select').value));
@@ -390,7 +385,7 @@ function installInteractions() {
   $('share').addEventListener('click', async () => {
     const payload = {
       title: 'A27 · 房车活动模型',
-      text: '柜门点击开启、再点关闭；其他活动部件点击播放。',
+      text: '点击部件图示单独查看，再次点击恢复整车。',
       url: location.href,
     };
     try {
@@ -528,8 +523,7 @@ async function init() {
     ghostMode = createGhostMode(model);
     electricalOverlay = createElectricalOverlay();
     scene.add(electricalOverlay);
-    scene.add(createInverter());
-    scene.add(createRemotePanel());
+    const inverter=createInverter(),remote=createRemotePanel();scene.add(inverter,remote);
     $('locate-remote-panel').disabled = false;
     for (const id of ['locate-inverter', 'locate-inverter-panel']) $(id).disabled = false;
     $('electrical-toggle').disabled = false;
@@ -537,6 +531,22 @@ async function init() {
     for (const action of info.actions) {
       const option = document.createElement('option'); option.value = action.id; option.textContent = action.label; $('action-select').append(option);
     }
+    partCatalog=buildParts([model,inverter,remote],info.actions);isolation=createIsolation(partCatalog);
+    const previews=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});previews.setSize(144,144);previews.setPixelRatio(1);
+    selectPart=(id)=>{
+      stopAnimations();isolation.toggle(id);
+      document.querySelectorAll('.part-card').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.part===isolation.active)));
+      $('part-status').textContent=isolation.active?partCatalog.groups.find(g=>g.id===id).label+' · 再点恢复整车':'全部部件 · 点击图示单独查看';
+      electricalOverlay.visible=electricalVisible&&!isolation.active;ghostMode(electricalVisible&&!isolation.active);
+      if(isolation.active){const box=new THREE.Box3();partCatalog.groups.find(g=>g.id===id).objects.filter(o=>o.visible).forEach(o=>box.union(new THREE.Box3().setFromObject(o)));const center=box.getCenter(new THREE.Vector3());controls.target.copy(center);camera.position.copy(center).add(new THREE.Vector3(1,.7,1).normalize().multiplyScalar(Math.max(.6,box.getSize(new THREE.Vector3()).length()*1.6)));controls.update();}
+      else fitModel();requestRender();
+    };
+    for(const part of partCatalog.groups){const b=document.createElement('button');b.className='part-card';b.dataset.part=part.id;b.setAttribute('aria-pressed','false');const img=document.createElement('img');img.src=thumbnail(part,previews);img.alt='';const name=document.createElement('span');name.textContent=part.label;b.append(img,name);b.addEventListener('click',()=>selectPart(part.id));$('parts-list').append(b);}
+    previews.dispose();
+    for(const id of ['play-all','pause-motion','stop-motion','action-select','play-selected'])$('compact-actions').append($(id));
+    const lidLabel=$('toilet-lid').closest('label');$('compact-actions').append(lidLabel);
+    $('flow-controls').append($('flow-mode'),$('flow-animate').closest('label'));
+    $('restore-parts').addEventListener('click',()=>{if(isolation.active)selectPart(isolation.active);});
     fitModel();
     installInteractions();
     status.ready = true;
