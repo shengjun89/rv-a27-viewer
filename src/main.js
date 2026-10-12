@@ -4,13 +4,14 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createCADMotion, cycleProgress } from './cad-motion.js';
 import { createGhostMode, createElectricalOverlay } from './electrical.js';
-import { createInverter, createRemotePanel, createInverterCabinet } from './inverter.js';
+import { createInverter, createRemotePanel, inverterPlacement } from './inverter.js';
 
 const $ = (id) => document.getElementById(id);
 const host = $('viewer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let renderer, camera, scene, controls, model, info, cadMotion;
 let electricalOverlay, ghostMode;
+let flowSeconds=0, previousFlowTime=null;
 let electricalVisible = false;
 let demoPanelWasOpen = true;
 let frame = 0;
@@ -129,6 +130,13 @@ function render(time) {
     }
     keepRendering = Boolean(motion);
   }
+  if (electricalVisible && electricalOverlay && !document.hidden) {
+    const animate=$('flow-animate').checked;
+    if(animate && previousFlowTime!==null)flowSeconds+=Math.min((time-previousFlowTime)/1000,.1);
+    electricalOverlay.userData.updateFlow(flowSeconds,$('flow-mode').value);
+    previousFlowTime=time;
+    keepRendering ||= animate;
+  } else previousFlowTime=null;
   status.playlistRemaining = playlist.length;
   status.paused = pausedAt !== null;
   updatePlaybackUI();
@@ -328,13 +336,15 @@ function installInteractions() {
     else demoPanel.open = demoPanelWasOpen;
     resize();
   }
+  $('flow-animate').checked=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for(const id of ['flow-mode','flow-animate'])$(id).addEventListener('change',()=>{previousFlowTime=null;requestRender();});
   $('electrical-toggle').addEventListener('click', () => setElectricalVisible(!electricalVisible));
   for (const id of ['locate-inverter', 'locate-inverter-panel']) $(id).addEventListener('click', () => {
     setElectricalVisible(true);
     topView = false;
     $('top-view').setAttribute('aria-pressed', 'false');
-    controls.target.set(1.0,1.95,.82);
-    camera.position.set(2.15,2.45,-1.30);
+    controls.target.set(...inverterPlacement.center);
+    camera.position.set(2.20,1.55,-.65);
     controls.update();
     requestRender();
   });
@@ -519,9 +529,6 @@ async function init() {
     electricalOverlay = createElectricalOverlay();
     scene.add(electricalOverlay);
     scene.add(createInverter());
-    const inverterCabinet=createInverterCabinet();scene.add(inverterCabinet);
-    $('cabinet-inspect').disabled=false;
-    $('cabinet-inspect').addEventListener('change', e => {inverterCabinet.userData.cover.visible=!e.target.checked;requestRender();});
     scene.add(createRemotePanel());
     $('locate-remote-panel').disabled = false;
     for (const id of ['locate-inverter', 'locate-inverter-panel']) $(id).disabled = false;
@@ -569,6 +576,7 @@ async function init() {
 
 window.addEventListener('resize', resize);
 document.addEventListener('visibilitychange', () => {
+  previousFlowTime=null;
   if (!document.hidden) requestRender();
 });
 init();

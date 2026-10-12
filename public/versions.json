@@ -1,0 +1,32 @@
+{
+  "release": "20261012-e01r10",
+  "web": {
+    "base": "A27 R7",
+    "electrical": "E01R10：沙发底主机、细线及供能方向动画",
+    "toilet": "WC01：座圈便盆和掀盖"
+  },
+  "assets": [
+    {
+      "path": "rv-a27.glb",
+      "sha256": "4f2860dac2a375b4575bca3cb53adba2299bc35a2208bab6e544e8b6fed657e1",
+      "status": "冻结基础资产；不含网页增量建模"
+    },
+    {
+      "path": "motion-data.json",
+      "sha256": "2cf6add07e8c1ace389fe5b22eb98e21a70a7f24850ae96c665cbedee194898b",
+      "status": "冻结基础资产；不含网页增量建模"
+    },
+    {
+      "path": "downloads/RV_R7_FreeCAD.zip",
+      "sha256": "7c9952644fa7e530687e91c0e7171739c77ab87890fafdb2b2643a521ddac3b4",
+      "status": "冻结基础资产；不含网页增量建模"
+    }
+  ],
+  "cad": "下载为R7基础工程，未同步主机、CR50、WC01等网页增量",
+  "pdf": "既有图册冻结；未生成本次同版图册",
+  "pending": [
+    "主机平放许可、通风与检修",
+    "CR50冰箱及柜体几何适配",
+    "网页变更回写CAD并重新出图"
+  ]
+}

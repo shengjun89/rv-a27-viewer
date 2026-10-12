@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f4f3ee">
   <meta name="description" content="大通V80房车A27活动部件交互模型">
-  <title>A27 R7 · 房车活动模型</title>
-  <link rel="stylesheet" href="./style.css?v=20261012-wc01">
+  <title>A27 · E01R10 / WC01 房车模型</title>
+  <link rel="stylesheet" href="./style.css?v=20261012-e01r10">
 </head>
 <body>
   <main id="viewer" aria-label="房车三维模型，拖动旋转，双指缩放或平移"></main>
@@ -39,28 +39,30 @@
       <div class="demo-row"><select id="action-select" aria-label="选择演示部件" disabled></select><button id="play-selected" disabled>开合 / 演示</button></div>
       <div class="demo-row"><button id="locate-toilet" disabled>定位坐便器</button><label><input id="toilet-lid" type="checkbox" disabled> 掀开便盖</label></div>
       <p class="demo-note">坐便器为420长×340宽×440高mm外形候选；型号、排污与安装接口待定。下载CAD仍为旧版。</p>
-      <div class="demo-row"><button id="locate-inverter" disabled>定位充逆变一体机</button></div>
+      <div class="demo-row"><button id="locate-inverter" disabled>查看沙发底一体机</button></div>
       <p class="demo-hint">已登记CR50：380宽×500深×534高mm、43.8L、60W。当前旧冰箱/柜体及分体机仓尚未几何更新，不能据此开料。</p>
       <p class="demo-hint">门点击打开停住，再点关闭。播放中可手动旋转观察。</p>
-      <p class="demo-downloads"><a href="./downloads/RV_R7_FreeCAD.zip">下载模型与演示宏</a> · <a href="./battery-right-bay.png" target="_blank" rel="noopener">电池检修位置</a></p>
+      <p class="demo-downloads"><a href="./downloads/RV_R7_FreeCAD.zip">下载基础CAD（R7旧版）</a> · <a href="./battery-right-bay.png" target="_blank" rel="noopener">电池检修位置</a> · <a href="./versions.html" target="_blank" rel="noopener">版本对照</a></p>
     </div>
   </details>
 
   <aside id="electrical-panel" class="electrical-panel" hidden aria-label="电路配置候选">
-    <p class="electrical-eyebrow">用电方案 · E01</p>
+    <p class="electrical-eyebrow">用电方案 · E01R10</p>
     <h1>48V 生活用电</h1>
     <p class="electrical-spec">8kWh 电池 <span>＋</span> 5400W 充逆变器</p>
     <p class="electrical-note">用户确认：充电限流 40A<br>其他模型不透明度 4% · 线路为布局候选</p>
-    <div class="demo-row"><button id="locate-inverter-panel" disabled>定位一体机</button><button id="locate-remote-panel" disabled>定位操作面板</button></div>
-    <label><input id="cabinet-inspect" type="checkbox" disabled> 拆下面板查看柜内</label>
-    <p>两窗间降噪柜：480×640×300mm外包占位。上下通风、错位挡声、柜板减振；热工、声学和厂家散热间距未验，不作密封储物柜。</p>
-    <p class="electrical-note">I：办公桌—沙发侧，两扇窗之间固定墙面，竖向试放。按商品图建287.6宽×431.7高×115.5深mm外形；窗间承力、窗帘、散热、噪声及坐卧避让待核。</p>
+    <div class="demo-row"><label for="flow-mode">供能方向</label><select id="flow-mode"><option value="battery">电池供电</option><option value="shore">岸电补能</option><option value="charger">取电器补能</option></select></div>
+    <label><input id="flow-animate" type="checkbox" checked> 蚂蚁线动画</label>
+    <p class="electrical-note">箭头表示所选工况的供能示意，非实时电流；补能模式假设一体机充电并供给负载。控制线双向，PE保护线静态；岸电与取电器互锁择一。取消动画可静看方向。</p>
+    <div class="demo-row"><button id="locate-inverter-panel" disabled>查看沙发底主机</button><button id="locate-remote-panel" disabled>定位操作面板</button></div>
+    <p>一体机藏于沙发底，外部仅保留独立控制器；窗间降噪柜已撤下。主机原尺寸平放试排，厂家平放许可、通风和检修路径待核。点击查看可透视定位。</p>
+    <p class="electrical-note">I：沙发底固定舱内，保留287.6×431.7×115.5mm商品图外形，背面朝下平放候选。与右侧电池分开布置；平放许可、散热、检修和固定待核。</p>
     <p class="electrical-note">C：办公桌靠墙左侧，独立LCD操作面板；200×110×25mm为展示占位，尺寸待核。仅外形演示，无实时数据。</p>
     <div class="electrical-legend"><span style="--line:#9a69ac">面板连接线</span><span style="--line:#c74d45">48V 正极</span><span style="--line:#536575">负极 / 分流器</span><span style="--line:#c38220">220V 电缆束</span><span style="--line:#167caa">12V 双线支路</span><span style="--line:#518346">PE 保护连接</span></div>
     <a class="electrical-link" href="./electrical.html" target="_blank" rel="noopener">查看系统图、回路表与选型条件 ↗</a>
     <details open><summary>设备与回路</summary><dl>
       <dt>C ↔ I</dt><dd>独立面板与一体机连接；商品图标注8m网线延长，专用接法待核。</dd>
-      <dt>B → F → I</dt><dd>电池 → 近端熔断 / 隔离 → 充逆变器</dd>
+      <dt>B ↔ F ↔ I</dt><dd>电池供电时流向一体机，补能模式反向充电；近端熔断 / 隔离串接。</dd>
       <dt>S / Q → T → I → A</dt><dd>岸电 / 取电器220V → 互锁择一与输入保护 → 一体机 → 输出漏保配电</dd>
       <dt>A → K / W / O</dt><dd>厨房、洗衣机、办公各自独立支路</dd>
       <dt>F → D → R / L</dt><dd>48→12V → 冰箱、照明、风扇及水泵分保险</dd>
@@ -82,6 +84,6 @@
     <i><b id="progress"></b></i>
   </div>
 
-  <script type="module" src="./app.js?v=20261012-wc01"></script>
+  <script type="module" src="./app.js?v=20261012-e01r10"></script>
 </body>
 </html>

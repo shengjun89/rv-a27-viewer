@@ -2,11 +2,11 @@ import * as THREE from 'three';
 
 // User product drawing: width includes mounting flanges. No hole sizes or service clearances supplied.
 export const inverterPlacement = {
-  center:[1.0,1.95,.82], size:[.2876,.4317,.1155],
-  bodyWidth:.273, status:'商品图外形287.6×431.7×115.5mm；安装位置与散热待核',
+  center:[1.56,.90,.58], size:[.2876,.4317,.1155],
+  bodyWidth:.273, status:'商品图外形287.6×431.7×115.5mm；沙发底平放候选；厂家平放许可、散热及检修待核',
 };
 export function createInverter() {
-  const group=new THREE.Group();group.name='壁挂充逆变一体机｜商品图外形';group.position.set(...inverterPlacement.center);group.rotation.y=Math.PI;
+  const group=new THREE.Group();group.name='沙发底充逆变一体机｜平放许可待核';group.position.set(...inverterPlacement.center);group.rotation.set(-Math.PI/2,0,Math.PI/2);
   group.userData={candidate:true,dimensionsMm:[287.6,431.7,115.5],installationApproved:false};
   const shell=new THREE.MeshStandardMaterial({color:'#343838',metalness:.4,roughness:.55});
   const dark=new THREE.MeshStandardMaterial({color:'#151c1b',metalness:.15,roughness:.65});
@@ -61,33 +61,5 @@ export function createRemotePanel() {
     const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
     const legends=new THREE.Mesh(new THREE.PlaneGeometry(.17,.11),new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));legends.name='面板标识｜展示未连接';legends.position.z=.015;group.add(legends);
   }
-  return group;
-}
-
-// Visual enclosure proposal only. Vent free area, pressure loss and thermal performance are not verified.
-export function createInverterCabinet() {
-  const group=new THREE.Group();group.name='两窗间通风降噪柜｜未验热工与声学';
-  group.position.set(...inverterPlacement.center);group.rotation.y=Math.PI;
-  group.userData={candidate:true,dimensionsMm:[480,640,300],thermalApproved:false,acousticApproved:false};
-  const white=new THREE.MeshStandardMaterial({color:'#eee9db',metalness:.25,roughness:.6});
-  const grey=new THREE.MeshStandardMaterial({color:'#565d59',metalness:.3,roughness:.7});
-  const brass=new THREE.MeshStandardMaterial({color:'#9c8051',metalness:.65,roughness:.4});
-  function box(name,size,pos,material=white,parent=group){const mesh=new THREE.Mesh(new THREE.BoxGeometry(...size),material);mesh.name=name;mesh.position.set(...pos);parent.add(mesh);return mesh;}
-  // Back remains open to the independent appliance mounting plate; cabinet is separately anchored.
-  for(const x of [-.239,.239])box('金属侧板｜厚度及加强待核',[.002,.64,.288],[x,0,.077]);
-  for(const y of [-.319,.319])box('金属顶底板｜外罩独立固定',[.476,.002,.288],[0,y,.077]);
-  const cover=new THREE.Group();cover.name='可拆检修面板｜展示拆下不代表拆卸动作已验';group.add(cover);
-  box('暖白检修面板',[.476,.438,.002],[0,0,.222],white,cover);
-  for(const y of [-.307,.307])box('面板上下边框',[.476,.024,.002],[0,y,.222],white,cover);
-  for(const x of [-.229,.229])box('通风口侧框',[.018,.64,.002],[x,0,.222],white,cover);
-  for(const sign of [-1,1])for(let i=0;i<5;i++){
-    const slat=box('错位通风百叶｜开孔率待核',[.43,.004,.023],[0,sign*(.232+i*.014),.216],grey,cover);slat.rotation.x=sign*.40;
-  }
-  // Offset baffles leave an open passage; arrows/direction require the actual appliance fan specification.
-  for(const y of [-.26,.26])box('错位挡声板｜风向与阻力待核',[.40,.054,.002],[0,y,.166],grey);
-  box('封装吸声层占位｜材料防火耐温待选',[.40,.36,.015],[0,0,.211],grey,cover);
-  for(const x of [-.211,.211])for(const y of [-.19,.19])box('防松检修锁扣候选',[.014,.023,.008],[x,y,.228],brass,cover);
-  for(const x of [-.205,.205])for(const y of [-.292,.292])box('柜板减振连接占位｜非主机软悬挂',[.023,.023,.006],[x,y,-.064],grey);
-  group.userData.cover=cover;
   return group;
 }
