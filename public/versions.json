@@ -1,10 +1,11 @@
 {
-  "release": "20261013-functions01",
+  "release": "20261013-rd01",
   "web": {
     "base": "A27 R7",
     "electrical": "E01R10：沙发底主机、细线及供能方向动画",
     "toilet": "WC01：座圈便盆和掀盖",
-    "interaction": "7个产品功能分区，整套组件查看/恢复整车"
+    "interaction": "7个产品功能分区，整套组件查看/恢复整车",
+    "renderLayers": "RD01：驾驶舱细节与车顶，默认隐藏、按需加载"
   },
   "assets": [
     {
@@ -21,14 +22,24 @@
       "path": "downloads/RV_R7_FreeCAD.zip",
       "sha256": "7c9952644fa7e530687e91c0e7171739c77ab87890fafdb2b2643a521ddac3b4",
       "status": "冻结基础资产；不含网页增量建模"
+    },
+    {
+      "path": "render-details.glb",
+      "sha256": "aedde3b8bb0199545e9322a3e77928c625ef02fc8444166c2d0ab3116ddc4d36",
+      "status": "RD01出图参考；非加工实体/整车同版工程"
+    },
+    {
+      "path": "downloads/RV_R7_RenderLayers_FreeCAD.zip",
+      "sha256": "9bfc1fcd7c565c4dba9db13dc9a81effa7164f733871ae8e0746c59db54a16c4",
+      "status": "RD01出图参考；非加工实体/整车同版工程"
     }
   ],
-  "cad": "下载为R7基础工程，未同步主机、CR50、WC01等网页增量",
+  "cad": "R7基础保留；新增R7出图层独立副本，仍未同步E01R10、WC01、CR50",
   "pdf": "既有图册冻结；未生成本次同版图册",
   "pending": [
     "主机平放许可、通风与检修",
     "CR50冰箱及柜体几何适配",
     "网页变更回写CAD并重新出图"
   ],
-  "share": "20261013-WARM03-ALPINE：28张3:4暖白自然分享图，Alpine全白61键琴；保留历史手册"
+  "share": "历史WARM03分享图待空间纠错重审；用户最新要求白色机身、黑白琴键，旧全白键图不作为最新确认"
 }

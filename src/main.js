@@ -1,3 +1,4 @@
+import { createRenderLayers } from './render-layers.js';
 import { buildParts, createIsolation, thumbnail } from './parts.js';
 import { replaceToilet } from './toilet.js';
 import * as THREE from 'three';
@@ -11,7 +12,7 @@ const $ = (id) => document.getElementById(id);
 const host = $('viewer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let renderer, camera, scene, controls, model, info, cadMotion;
-let electricalOverlay, ghostMode;
+let electricalOverlay, ghostMode, renderLayers, renderLayerLoad;
 let flowSeconds=0, previousFlowTime=null;
 let electricalVisible = false;
 let demoPanelWasOpen = true;
@@ -47,6 +48,8 @@ const status = {
 Object.defineProperty(window, 'viewerStatus', {
   get: () => ({
     ...status,
+    renderLayers:renderLayers?.state || {cockpit:false,roof:false},
+    detailMeshes:renderLayers?.visibleMeshes || 0,
     camera: camera?.position.toArray(),
     drawCalls: renderer?.info.render.calls,
     triangles: renderer?.info.render.triangles,
@@ -520,7 +523,29 @@ async function init() {
     $('locate-toilet').disabled=false;
     $('locate-toilet').addEventListener('click',()=>{stopAnimations();cadMotion.apply('bath',100);controls.target.set(2.53,1.05,-.70);camera.position.set(2.12,1.85,-.48);controls.update();requestRender();});
     scene.add(model);
-    ghostMode = createGhostMode(model);
+    const baseGhost=createGhostMode(model);
+    ghostMode=(enabled)=>{baseGhost(enabled);renderLayers?.ghost(enabled);};
+    for(const layer of ['cockpit','roof']) {
+      const button=$('layer-'+layer);button.disabled=false;
+      button.addEventListener('click',async()=>{
+        const text=button.textContent;button.disabled=true;
+        try {
+          if(!renderLayers){
+            button.textContent='载入中…';
+            renderLayerLoad ||= new GLTFLoader().loadAsync('./render-details.glb?v=20261013-rd01').then(g=>{
+              renderLayers=createRenderLayers(g.scene);scene.add(g.scene);
+              renderLayers.isolate(isolation?.active);renderLayers.ghost(electricalVisible&&!isolation?.active);
+            }).catch(error=>{renderLayerLoad=null;throw error;});
+            await renderLayerLoad;
+          }
+          renderLayers.set(layer,!renderLayers.state[layer]);
+          button.setAttribute('aria-pressed',String(renderLayers.state[layer]));
+          button.title='出图参考层；默认隐藏';
+          requestRender();
+        } catch(error){button.title='加载失败，请再点一次';console.error(error);}
+        finally {button.textContent=text;button.disabled=false;}
+      });
+    }
     electricalOverlay = createElectricalOverlay();
     scene.add(electricalOverlay);
     const inverter=createInverter(),remote=createRemotePanel();scene.add(inverter,remote);
@@ -534,7 +559,7 @@ async function init() {
     partCatalog=buildParts([model,inverter,remote],info.actions);isolation=createIsolation(partCatalog);
     const previews=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});previews.setSize(144,144);previews.setPixelRatio(1);
     selectPart=(id)=>{
-      stopAnimations();isolation.toggle(id);
+      stopAnimations();isolation.toggle(id);renderLayers?.isolate(isolation.active);
       document.querySelectorAll('.part-card').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.part===isolation.active)));
       $('part-status').textContent=isolation.active?partCatalog.groups.find(g=>g.id===id).label+' · 再点恢复整车':'功能分区 · 点击查看整套组件';
       electricalOverlay.visible=electricalVisible&&!isolation.active;ghostMode(electricalVisible&&!isolation.active);

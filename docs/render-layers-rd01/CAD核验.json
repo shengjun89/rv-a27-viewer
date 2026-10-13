@@ -1,0 +1,15 @@
+{
+  "source": "/Users/bytedance/.codex/worktrees/bc21/房车方案/output/整车演示_R7_20260929/房车完整布局_R7_右舱电池与电器开门演示.FCStd",
+  "source_sha256": "b96d6fe833e24da3644b82a5bbee7ede0ad21f532f9da34f44fe85c3df84e6af",
+  "output": "/Users/bytedance/Documents/房车方案/work/驾驶舱出图补模_20261013/房车完整布局_R7_驾驶舱与车顶出图层.FCStd",
+  "old_objects": 1370,
+  "new_meshes": 43,
+  "groups_hidden": {
+    "cockpit": true,
+    "roof": true
+  },
+  "old_states_preserved": true,
+  "original_file_unchanged": true,
+  "reopened_default_hidden": true,
+  "sha256": "9054a1488c1852376708f0ff4c8f392d08d9b8d3b051ff11ea48b8640ae6f019"
+}
