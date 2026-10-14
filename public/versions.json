@@ -1,11 +1,12 @@
 {
-  "release": "20261013-rd01",
+  "release": "20261014-r5",
   "web": {
     "base": "A27 R7",
     "electrical": "E01R10：沙发底主机、细线及供能方向动画",
     "toilet": "WC01：座圈便盆和掀盖",
     "interaction": "7个产品功能分区，整套组件查看/恢复整车",
-    "renderLayers": "RD01：驾驶舱细节与车顶，默认隐藏、按需加载"
+    "renderLayers": "R5：完整车外壳、冰淇淋蓝涂装与机盖转角修形，外壳及驾驶舱默认隐藏",
+    "bathroomDoor": "BD02：工业风磨砂玻璃门，原位向内0–90度，替换旧卷门"
   },
   "assets": [
     {
@@ -25,16 +26,26 @@
     },
     {
       "path": "render-details.glb",
-      "sha256": "aedde3b8bb0199545e9322a3e77928c625ef02fc8444166c2d0ab3116ddc4d36",
-      "status": "RD01出图参考；非加工实体/整车同版工程"
+      "sha256": "09ab4a8b74bf2ae4c6f8633c71ea7bb66a8682c591e52c140a2adddc3c8373b3",
+      "status": "R5出图候选；外壳非原厂加工实体，门体原生候选"
     },
     {
       "path": "downloads/RV_R7_RenderLayers_FreeCAD.zip",
-      "sha256": "9bfc1fcd7c565c4dba9db13dc9a81effa7164f733871ae8e0746c59db54a16c4",
-      "status": "RD01出图参考；非加工实体/整车同版工程"
+      "sha256": "ba13345aba92e386c78d93f4531f7bc13c6fcdec8e0f1df68d84ce1b700ac715",
+      "status": "R5出图候选；外壳非原厂加工实体，门体原生候选"
+    },
+    {
+      "path": "industrial-bath-door.glb",
+      "sha256": "8734f9fe9e8331f42e0628d6731904d0c61142fbd21dc9f9518b3ba776fe8c8e",
+      "status": "BD02候选替换；保留其它原几何"
+    },
+    {
+      "path": "rv-a27-clean-bath.glb",
+      "sha256": "15ba22f5f93754f269b5145886a1fb1c0af37a7b2589e15d17ba7d4272dd0db9",
+      "status": "BD02候选替换；保留其它原几何"
     }
   ],
-  "cad": "R7基础保留；新增R7出图层独立副本，仍未同步E01R10、WC01、CR50",
+  "cad": "R7派生副本新增79组外观参考网格及26门体原生实体，旧卷门隐藏；E01R10/WC01/CR50仍未同步",
   "pdf": "既有图册冻结；未生成本次同版图册",
   "pending": [
     "主机平放许可、通风与检修",

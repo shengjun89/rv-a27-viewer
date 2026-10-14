@@ -1,0 +1,14 @@
+[
+  {
+    "art": "public/r5/exterior.png"
+  },
+  {
+    "art": "public/r5/door.png"
+  },
+  {
+    "art": "public/r5/open.png"
+  },
+  {
+    "art": "public/r5/closed.png"
+  }
+]

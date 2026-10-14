@@ -1,3 +1,4 @@
+import { installBathDoor } from './bath-door.js';
 import { createRenderLayers } from './render-layers.js';
 import { buildParts, createIsolation, thumbnail } from './parts.js';
 import { replaceToilet } from './toilet.js';
@@ -11,7 +12,7 @@ import { createInverter, createRemotePanel, inverterPlacement } from './inverter
 const $ = (id) => document.getElementById(id);
 const host = $('viewer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let renderer, camera, scene, controls, model, info, cadMotion;
+let renderer, camera, scene, controls, model, info, cadMotion, bathDoor;
 let electricalOverlay, ghostMode, renderLayers, renderLayerLoad;
 let flowSeconds=0, previousFlowTime=null;
 let electricalVisible = false;
@@ -48,7 +49,8 @@ const status = {
 Object.defineProperty(window, 'viewerStatus', {
   get: () => ({
     ...status,
-    renderLayers:renderLayers?.state || {cockpit:false,roof:false},
+    bathDoorAngle:bathDoor?.angle ?? null,
+    renderLayers:renderLayers?.state || {cockpit:false,exterior:false},
     detailMeshes:renderLayers?.visibleMeshes || 0,
     camera: camera?.position.toArray(),
     drawCalls: renderer?.info.render.calls,
@@ -90,7 +92,7 @@ function getPickTargets() {
       const hit = raycaster
         .intersectObject(model, true)
         .find((entry) =>
-          Object.keys(entry.object.userData.motions || {}).includes(actionId),
+          (entry.object.userData.actionId===actionId || Object.keys(entry.object.userData.motions || {}).includes(actionId)),
         );
       if (!hit) continue;
       result[actionId] = {
@@ -254,6 +256,7 @@ function resetModelAndView() {
 
 function fitModel(directionValues = info.cameraDirection) {
   const box = new THREE.Box3().setFromObject(model);
+  renderLayers?.expandBounds(box);
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const direction = new THREE.Vector3(...directionValues).normalize();
@@ -453,7 +456,7 @@ async function init() {
     status.revision = info.revision;
     const oldFridge = info.actions.find(a => a.id === 'AP_FridgeSwing');
     if (oldFridge) oldFridge.label = '旧冰箱门｜待适配CR50';
-    const gltf = await new GLTFLoader().loadAsync(`./rv-a27.glb?v=${info.assetHash || info.modelHash}`, (event) => {
+    const gltf = await new GLTFLoader().loadAsync(`./rv-a27-clean-bath.glb?v=20261014-r5`, (event) => {
       const percent = Math.min(
         96,
         Math.round((event.loaded / (event.total || info.bytes)) * 96),
@@ -506,7 +509,7 @@ async function init() {
       }
     });
     for (const action of info.actions) {
-      if (!actionMeshes.get(action.id)?.length) {
+      if (action.id !== 'bath' && !actionMeshes.get(action.id)?.length) {
         throw new Error(`missing motion: ${action.id}`);
       }
     }
@@ -515,7 +518,16 @@ async function init() {
     if (!motionResponse.ok) throw new Error('CAD timeline unavailable');
     const motionData = await motionResponse.json();
     if (motionData.modelHash !== info.modelHash) throw new Error('CAD timeline version mismatch');
+    motionData.actions.bath.tracks={};
+    motionData.actions.bath.interaction='door';
+    motionData.actions.bath.baselineProgress=0;
     cadMotion = createCADMotion(model, motionData);
+    const doorGLTF=await new GLTFLoader().loadAsync('./industrial-bath-door.glb?v=20261014-r5');
+    bathDoor=installBathDoor(model,doorGLTF.scene,cadMotion);
+    const bathAction=info.actions.find(a=>a.id==='bath');
+    if(bathAction){bathAction.label='工业风磨砂卫浴门';bathAction.title='卫生间门向内开启';bathAction.interaction='door';}
+    actionMeshes.set('bath',[]);
+    doorGLTF.scene.traverse(o=>{if(o.isMesh)actionMeshes.get('bath').push({mesh:o});});
     cadMotion.resetAll();
     const toilet=replaceToilet(model);
     $('toilet-lid').disabled=false;
@@ -525,14 +537,14 @@ async function init() {
     scene.add(model);
     const baseGhost=createGhostMode(model);
     ghostMode=(enabled)=>{baseGhost(enabled);renderLayers?.ghost(enabled);};
-    for(const layer of ['cockpit','roof']) {
+    for(const layer of ['cockpit','exterior']) {
       const button=$('layer-'+layer);button.disabled=false;
       button.addEventListener('click',async()=>{
         const text=button.textContent;button.disabled=true;
         try {
           if(!renderLayers){
             button.textContent='载入中…';
-            renderLayerLoad ||= new GLTFLoader().loadAsync('./render-details.glb?v=20261013-rd01').then(g=>{
+            renderLayerLoad ||= new GLTFLoader().loadAsync('./render-details.glb?v=20261014-r5').then(g=>{
               renderLayers=createRenderLayers(g.scene);scene.add(g.scene);
               renderLayers.isolate(isolation?.active);renderLayers.ghost(electricalVisible&&!isolation?.active);
             }).catch(error=>{renderLayerLoad=null;throw error;});
@@ -540,6 +552,7 @@ async function init() {
           }
           renderLayers.set(layer,!renderLayers.state[layer]);
           button.setAttribute('aria-pressed',String(renderLayers.state[layer]));
+          if(!isolation?.active || isolation.active==='vehicle')fitModel();
           button.title='出图参考层；默认隐藏';
           requestRender();
         } catch(error){button.title='加载失败，请再点一次';console.error(error);}

@@ -1,0 +1,136 @@
+{
+  "release": "20261014-r5",
+  "producer": "/root",
+  "used_assets": [
+    "public/r5/exterior.png",
+    "public/r5/door.png",
+    "public/r5/open.png",
+    "public/r5/closed.png"
+  ],
+  "layout_dependencies": {
+    "path": "docs/r5/layout-dependencies.json",
+    "sha256": "3981e252d7d9531dae5b7bb38aeec99f3a4a6cc6df65caf5922b299d8f7b69f6"
+  },
+  "assets": [
+    {
+      "id": "public/r5/exterior.png",
+      "kind": "model-render",
+      "output": "public/r5/exterior.png",
+      "sha256": "a6380ef7c19fa6ee09d80af792fc6ca3c36e6a29ff4b497d1d463dfe234b09c5",
+      "sources": [
+        {
+          "path": "public/render-details.glb",
+          "sha256": "09ab4a8b74bf2ae4c6f8633c71ea7bb66a8682c591e52c140a2adddc3c8373b3"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "保持窗门家具原位；仅改授权外凸/涂装与原门洞新门；模型候选非工程批准"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r5/exterior-review.md",
+          "sha256": "f8024a5c3f7f685a78d6b3661e468ee48e3a8f74eb5f6932770ae81dd926d80f"
+        },
+        "evidence": "独立代理实际查看同版图并在原始报告绑定SHA；限定范围通过，制造/实物隐私不属于视觉通过范围",
+        "unresolved": []
+      }
+    },
+    {
+      "id": "public/r5/door.png",
+      "kind": "model-render",
+      "output": "public/r5/door.png",
+      "sha256": "9cee35e99ec483186f8ec8fa5a22a758d1bc10d3280fe4fddc434dec7c0ac389",
+      "sources": [
+        {
+          "path": "public/industrial-bath-door.glb",
+          "sha256": "8734f9fe9e8331f42e0628d6731904d0c61142fbd21dc9f9518b3ba776fe8c8e"
+        },
+        {
+          "path": "public/rv-a27-clean-bath.glb",
+          "sha256": "15ba22f5f93754f269b5145886a1fb1c0af37a7b2589e15d17ba7d4272dd0db9"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "保持窗门家具原位；仅改授权外凸/涂装与原门洞新门；模型候选非工程批准"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r5/door-review.md",
+          "sha256": "d25fbe15c9ea3bb9fd1cda1f637acd1c37e63e71299e23da4f0aa2a3083ce54a"
+        },
+        "evidence": "独立代理实际查看同版图并在原始报告绑定SHA；限定范围通过，制造/实物隐私不属于视觉通过范围",
+        "unresolved": []
+      }
+    },
+    {
+      "id": "public/r5/open.png",
+      "kind": "model-render",
+      "output": "public/r5/open.png",
+      "sha256": "502fe738ecc461c2b83b3b10a3358a83a761d648468c2f307eace55c64ef736e",
+      "sources": [
+        {
+          "path": "public/industrial-bath-door.glb",
+          "sha256": "8734f9fe9e8331f42e0628d6731904d0c61142fbd21dc9f9518b3ba776fe8c8e"
+        },
+        {
+          "path": "public/rv-a27-clean-bath.glb",
+          "sha256": "15ba22f5f93754f269b5145886a1fb1c0af37a7b2589e15d17ba7d4272dd0db9"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "保持窗门家具原位；仅改授权外凸/涂装与原门洞新门；模型候选非工程批准"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r5/door-review.md",
+          "sha256": "d25fbe15c9ea3bb9fd1cda1f637acd1c37e63e71299e23da4f0aa2a3083ce54a"
+        },
+        "evidence": "独立代理实际查看同版图并在原始报告绑定SHA；限定范围通过，制造/实物隐私不属于视觉通过范围",
+        "unresolved": []
+      }
+    },
+    {
+      "id": "public/r5/closed.png",
+      "kind": "model-render",
+      "output": "public/r5/closed.png",
+      "sha256": "5ceca7058ddf88b052ee3bf1d13aa49389e4002f89a7c4ffe92ff128c74a733a",
+      "sources": [
+        {
+          "path": "public/industrial-bath-door.glb",
+          "sha256": "8734f9fe9e8331f42e0628d6731904d0c61142fbd21dc9f9518b3ba776fe8c8e"
+        },
+        {
+          "path": "public/rv-a27-clean-bath.glb",
+          "sha256": "15ba22f5f93754f269b5145886a1fb1c0af37a7b2589e15d17ba7d4272dd0db9"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "保持窗门家具原位；仅改授权外凸/涂装与原门洞新门；模型候选非工程批准"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r5/door-review.md",
+          "sha256": "d25fbe15c9ea3bb9fd1cda1f637acd1c37e63e71299e23da4f0aa2a3083ce54a"
+        },
+        "evidence": "独立代理实际查看同版图并在原始报告绑定SHA；限定范围通过，制造/实物隐私不属于视觉通过范围",
+        "unresolved": []
+      }
+    }
+  ]
+}

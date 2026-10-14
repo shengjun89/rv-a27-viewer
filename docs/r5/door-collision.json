@@ -1,0 +1,83 @@
+{
+  "obstacles": 571,
+  "moving_parts": 18,
+  "checks": [
+    {
+      "angle": 0,
+      "hits": []
+    },
+    {
+      "angle": 5,
+      "hits": []
+    },
+    {
+      "angle": 10,
+      "hits": []
+    },
+    {
+      "angle": 15,
+      "hits": []
+    },
+    {
+      "angle": 20,
+      "hits": []
+    },
+    {
+      "angle": 25,
+      "hits": []
+    },
+    {
+      "angle": 30,
+      "hits": []
+    },
+    {
+      "angle": 35,
+      "hits": []
+    },
+    {
+      "angle": 40,
+      "hits": []
+    },
+    {
+      "angle": 45,
+      "hits": []
+    },
+    {
+      "angle": 50,
+      "hits": []
+    },
+    {
+      "angle": 55,
+      "hits": []
+    },
+    {
+      "angle": 60,
+      "hits": []
+    },
+    {
+      "angle": 65,
+      "hits": []
+    },
+    {
+      "angle": 70,
+      "hits": []
+    },
+    {
+      "angle": 75,
+      "hits": []
+    },
+    {
+      "angle": 80,
+      "hits": []
+    },
+    {
+      "angle": 85,
+      "hits": []
+    },
+    {
+      "angle": 90,
+      "hits": []
+    }
+  ],
+  "excluded_intended_joints": "hinge cylinder at axis; candidate pivot expression, hardware not selected"
+}
