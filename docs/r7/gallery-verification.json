@@ -1,0 +1,55 @@
+{
+  "images": [
+    {
+      "src": "r7/exterior.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/front-left.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/front-right.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/low.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/front.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/rear.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/side.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/clay-left.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/clay-right.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "src": "r7/clay-low.png",
+      "width": 1200,
+      "height": 900
+    }
+  ],
+  "overflow": false
+}

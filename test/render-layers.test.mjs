@@ -10,7 +10,7 @@ test('出图层默认关闭；分区和电路模式不能泄露或丢失显隐�
 });
 
 test('实际出图资产保持米制坐标与完整车外壳，加载时全部隐藏',async()=>{
- const {readFileSync}=await import('node:fs');const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');const b=readFileSync(new URL('../public/render-details.glb',import.meta.url));const root=(await new GLTFLoader().parseAsync(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),'')).scene;
+ const {readFileSync}=await import('node:fs');const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');const b=readFileSync(new URL('../public/render-details-r7.glb',import.meta.url));const root=(await new GLTFLoader().parseAsync(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),'')).scene;
  const meshes=[];root.traverse(o=>{if(o.isMesh)meshes.push(o);});assert.ok(meshes.length>43);
  const layers=createRenderLayers(root);assert.equal(layers.visibleMeshes,0);layers.set('cockpit',true);
  const box=new T.Box3();for(const o of meshes.filter(o=>o.visible))box.union(new T.Box3().setFromObject(o));assert.ok(box.min.x < -2 && box.max.x < -.30,'驾驶舱在前方，不能错用毫米或落到家具区');assert.ok(box.max.y<2.5&&box.min.y>.3,'竖向坐标使用glTF的Y轴');layers.set('exterior',true);assert.equal(layers.visibleMeshes,meshes.length);

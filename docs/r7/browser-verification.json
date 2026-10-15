@@ -1,0 +1,14 @@
+{
+  "initial": {
+    "cockpit": false,
+    "exterior": false
+  },
+  "cockpit": {
+    "cockpit": true,
+    "exterior": false
+  },
+  "errors": [],
+  "defaultHidden": true,
+  "isolation": true,
+  "electrical": true
+}

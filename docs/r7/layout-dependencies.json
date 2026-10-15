@@ -1,0 +1,32 @@
+[
+  {
+    "art": "public/r7/exterior.png"
+  },
+  {
+    "art": "public/r7/front-left.png"
+  },
+  {
+    "art": "public/r7/front-right.png"
+  },
+  {
+    "art": "public/r7/low.png"
+  },
+  {
+    "art": "public/r7/front.png"
+  },
+  {
+    "art": "public/r7/rear.png"
+  },
+  {
+    "art": "public/r7/side.png"
+  },
+  {
+    "art": "public/r7/clay-left.png"
+  },
+  {
+    "art": "public/r7/clay-right.png"
+  },
+  {
+    "art": "public/r7/clay-low.png"
+  }
+]

@@ -1,11 +1,11 @@
 {
-  "release": "20261014-r5",
+  "release": "20261015-r7",
   "web": {
     "base": "A27 R7",
     "electrical": "E01R10：沙发底主机、细线及供能方向动画",
     "toilet": "WC01：座圈便盆和掀盖",
     "interaction": "7个产品功能分区，整套组件查看/恢复整车",
-    "renderLayers": "R5：完整车外壳、冰淇淋蓝涂装与机盖转角修形，外壳及驾驶舱默认隐藏",
+    "renderLayers": "R7：车头正侧连续转面、底沿及局部细面优化；冰淇淋蓝外壳及驾驶舱默认隐藏",
     "bathroomDoor": "BD02：工业风磨砂玻璃门，原位向内0–90度，替换旧卷门"
   },
   "assets": [
@@ -43,9 +43,19 @@
       "path": "rv-a27-clean-bath.glb",
       "sha256": "15ba22f5f93754f269b5145886a1fb1c0af37a7b2589e15d17ba7d4272dd0db9",
       "status": "BD02候选替换；保留其它原几何"
+    },
+    {
+      "path": "render-details-r7.glb",
+      "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c",
+      "status": "20261015-R7车头转面候选；外壳为参考网格，原内饰及门体保留"
+    },
+    {
+      "path": "downloads/RV_R7_FrontSurface_FreeCAD.zip",
+      "sha256": "6125556470bb7e23eb5ddc27b2a9d528b123ee3c10a7b85b25bc0136c2fa8661",
+      "status": "20261015-R7车头转面候选；外壳为参考网格，原内饰及门体保留"
     }
   ],
-  "cad": "R7派生副本新增79组外观参考网格及26门体原生实体，旧卷门隐藏；E01R10/WC01/CR50仍未同步",
+  "cad": "R7派生副本更新79组同坐标外观参考网格，保留26个工业风门原生实体及原内饰；E01R10/WC01/CR50仍未原生同步",
   "pdf": "既有图册冻结；未生成本次同版图册",
   "pending": [
     "主机平放许可、通风与检修",

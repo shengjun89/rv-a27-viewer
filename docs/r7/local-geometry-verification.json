@@ -1,0 +1,28 @@
+{
+  "source_sha256": "45fa0269250930477e4347b497f409f80d30594ff60624ae69ed3b4c8bb72116",
+  "candidate_sha256": "cea5405e21922ded7502aa9e44691a690955efcb94ad8e86c5ac64e44136a414",
+  "changed_vertices": 230,
+  "bounds": [
+    [
+      -2.4990954399108887,
+      -2.2325165271759033
+    ],
+    [
+      0.9233132600784302,
+      1.0135160684585571
+    ],
+    [
+      1.0021281242370605,
+      1.348520278930664
+    ]
+  ],
+  "max_displacement_mm": 12.505292726543523,
+  "max_xz_displacement_mm": 0.0,
+  "outside_box_changed": [],
+  "local_triangles": 530,
+  "flipped_triangles": 0,
+  "minimum_normal_dot": 0.8297575529431924,
+  "degenerate_before": 0,
+  "degenerate_after": 0,
+  "face_indices_unchanged": true
+}

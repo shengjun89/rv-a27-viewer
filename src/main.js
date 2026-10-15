@@ -456,7 +456,7 @@ async function init() {
     status.revision = info.revision;
     const oldFridge = info.actions.find(a => a.id === 'AP_FridgeSwing');
     if (oldFridge) oldFridge.label = '旧冰箱门｜待适配CR50';
-    const gltf = await new GLTFLoader().loadAsync(`./rv-a27-clean-bath.glb?v=20261014-r5`, (event) => {
+    const gltf = await new GLTFLoader().loadAsync(`./rv-a27-clean-bath.glb?v=20261015-r7`, (event) => {
       const percent = Math.min(
         96,
         Math.round((event.loaded / (event.total || info.bytes)) * 96),
@@ -522,7 +522,7 @@ async function init() {
     motionData.actions.bath.interaction='door';
     motionData.actions.bath.baselineProgress=0;
     cadMotion = createCADMotion(model, motionData);
-    const doorGLTF=await new GLTFLoader().loadAsync('./industrial-bath-door.glb?v=20261014-r5');
+    const doorGLTF=await new GLTFLoader().loadAsync('./industrial-bath-door.glb?v=20261015-r7');
     bathDoor=installBathDoor(model,doorGLTF.scene,cadMotion);
     const bathAction=info.actions.find(a=>a.id==='bath');
     if(bathAction){bathAction.label='工业风磨砂卫浴门';bathAction.title='卫生间门向内开启';bathAction.interaction='door';}
@@ -544,7 +544,7 @@ async function init() {
         try {
           if(!renderLayers){
             button.textContent='载入中…';
-            renderLayerLoad ||= new GLTFLoader().loadAsync('./render-details.glb?v=20261014-r5').then(g=>{
+            renderLayerLoad ||= new GLTFLoader().loadAsync('./render-details-r7.glb?v=20261015-r7').then(g=>{
               renderLayers=createRenderLayers(g.scene);scene.add(g.scene);
               renderLayers.isolate(isolation?.active);renderLayers.ghost(electricalVisible&&!isolation?.active);
             }).catch(error=>{renderLayerLoad=null;throw error;});

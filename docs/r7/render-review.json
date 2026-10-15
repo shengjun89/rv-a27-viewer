@@ -1,0 +1,302 @@
+{
+  "release": "20261015-r7",
+  "producer": "/root",
+  "used_assets": [
+    "public/r7/exterior.png",
+    "public/r7/front-left.png",
+    "public/r7/front-right.png",
+    "public/r7/low.png",
+    "public/r7/front.png",
+    "public/r7/rear.png",
+    "public/r7/side.png",
+    "public/r7/clay-left.png",
+    "public/r7/clay-right.png",
+    "public/r7/clay-low.png"
+  ],
+  "layout_dependencies": {
+    "path": "docs/r7/layout-dependencies.json",
+    "sha256": "7e7f59e90fd9131d3c230e0e4214e6a38e72785ae992a8df4d9817c8d94ffe81"
+  },
+  "assets": [
+    {
+      "id": "public/r7/exterior.png",
+      "kind": "model-render",
+      "output": "public/r7/exterior.png",
+      "sha256": "4ca4a34da4e80fdf17034cfd153bbfa1e3b72471ec7788776a275ecd668c80a0",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/front-left.png",
+      "kind": "model-render",
+      "output": "public/r7/front-left.png",
+      "sha256": "7124124b9dbb5364cfdbe4a0270896b55173e984622d60bcbf91ffe0145e9362",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/front-right.png",
+      "kind": "model-render",
+      "output": "public/r7/front-right.png",
+      "sha256": "671fcb5bb001314b77fb0821ad9210e9853bb8041d01f670f9de66a74f36760c",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/low.png",
+      "kind": "model-render",
+      "output": "public/r7/low.png",
+      "sha256": "2b86054bfdc9115569e881d384f84199f958b5703c2fc5f48901a86c365a6b1d",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/front.png",
+      "kind": "model-render",
+      "output": "public/r7/front.png",
+      "sha256": "3cc3c78f2962b0ac97746a3a3ed3e44bc9513c076fc56821ca3764f81e1ca641",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/rear.png",
+      "kind": "model-render",
+      "output": "public/r7/rear.png",
+      "sha256": "99c20767cea965d2bd998181800fe81a05fc266a5ab4b04fa7b23f4af5c538b5",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/side.png",
+      "kind": "model-render",
+      "output": "public/r7/side.png",
+      "sha256": "b4e935dfa5de94c5acf1e7305896eb4ab231f49284276b66a73546f340912746",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/clay-left.png",
+      "kind": "model-render",
+      "output": "public/r7/clay-left.png",
+      "sha256": "6490d423958239cea2bf768f90f2baabbb9d2010411057e878b0fc2cc29b7329",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/clay-right.png",
+      "kind": "model-render",
+      "output": "public/r7/clay-right.png",
+      "sha256": "bba070fab7ac340724db43ae5621b8a1df7245fde868ae417428861c426d0b6f",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    },
+    {
+      "id": "public/r7/clay-low.png",
+      "kind": "model-render",
+      "output": "public/r7/clay-low.png",
+      "sha256": "d226168ff1c7bb05cb6d616646e301f28417d3161acc6b34d7ce4a4ce6a4e328",
+      "sources": [
+        {
+          "path": "public/render-details-r7.glb",
+          "sha256": "84dde3a7dc64e89427b5860e081f476aef6a6326c6a8dde7f565ce1bdbf09d4c"
+        }
+      ],
+      "preflight": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "invariants": "窗门家具轮位轴距保留；仅车头局部修形和限定范围法线；不整体拉长车身"
+      },
+      "review": {
+        "status": "pass",
+        "reviewer": "/root/r5_review",
+        "report": {
+          "path": "docs/r7/exterior-review.md",
+          "sha256": "d123bee8dad980bdf13375563f7f865d9d7b48f62a1514827f27bfd9480917b5"
+        },
+        "evidence": "独立审核实际查看同版7张彩色及3张条形高光，绑定SHA；车头局部改善及车厢着色回归通过",
+        "unresolved": []
+      },
+      "scope": "车灯旁主体转面可见造型；机盖边缘仍有轻微高光起伏，不扩大为A级制造曲面或工程批准"
+    }
+  ]
+}

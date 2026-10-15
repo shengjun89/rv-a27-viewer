@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "python3 scripts/verify-r5-release.py && esbuild src/main.js --bundle --minify --format=esm --outfile=public/app.js",
+    "build": "python3 scripts/verify-r5-release.py && python3 scripts/verify-r7-release.py && esbuild src/main.js --bundle --minify --format=esm --outfile=public/app.js",
     "dev": "python3 -m http.server 4173 --directory public",
     "test": "node --test test/*.test.mjs"
   },
